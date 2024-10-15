@@ -1,10 +1,10 @@
-package com.wora.models;
+package com.wora.models.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "riders")
@@ -29,19 +29,27 @@ public class Rider {
     @Column(name = "nationality", nullable = false)
     private String nationality;
 
-    @NotBlank
-    @Column(name = "team", nullable = false)
-    private String team;
+    @ManyToOne
+    private Team team;
 
-    public Rider() {}
+    @OneToMany(mappedBy = "rider", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<GeneralResult> generalResults;
 
-    public Rider(Long id, String fName, String lName, LocalDate birthDate, String nationality, String team) {
+    @OneToMany(mappedBy = "rider", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<RoundResult> roundResults;
+
+    public Rider() {
+    }
+
+    public Rider(Long id, String fName, String lName, LocalDate birthDate, String nationality, Team team, List<GeneralResult> generalResults, List<RoundResult> roundResults) {
         this.id = id;
         this.fName = fName;
         this.lName = lName;
         this.birthDate = birthDate;
         this.nationality = nationality;
         this.team = team;
+        this.generalResults = generalResults;
+        this.roundResults = roundResults;
     }
 
     public Long getId() {
@@ -84,11 +92,27 @@ public class Rider {
         this.nationality = nationality;
     }
 
-    public @NotBlank String getTeam() {
+    public Team getTeam() {
         return team;
     }
 
-    public void setTeam(@NotBlank String team) {
+    public void setTeam(Team team) {
         this.team = team;
+    }
+
+    public List<GeneralResult> getGeneralResults() {
+        return generalResults;
+    }
+
+    public void setGeneralResults(List<GeneralResult> generalResults) {
+        this.generalResults = generalResults;
+    }
+
+    public List<RoundResult> getRoundResults() {
+        return roundResults;
+    }
+
+    public void setRoundResults(List<RoundResult> roundResults) {
+        this.roundResults = roundResults;
     }
 }

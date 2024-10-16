@@ -5,6 +5,7 @@ import com.wora.models.entities.Competition;
 import com.wora.models.entities.GeneralResult;
 import com.wora.models.entities.Round;
 import com.wora.repositories.CompetitionRepository;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,7 +18,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -32,9 +35,9 @@ class CompetitionServiceTest {
     private CompetitionService service;
 
 
-
     @Test
-    void findById_returnCompetitionIfExist(){
+    @DisplayName("findById Return Competition If Exist")
+    void findById_returnCompetitionIfExist() {
         Long id = 14L;
         String name = "TAWAF al-Maghrib";
         LocalDate startDate = LocalDate.parse("2020-12-12");
@@ -57,5 +60,14 @@ class CompetitionServiceTest {
         assertEquals(competition.getName(), result.name());
         verify(repository).findById(id);
     }
+
+    @Test
+    @DisplayName("findById() Should Throw Exception When Id Is Null")
+    void findById_ShouldThrowExceptionWhenIdIsNull(){
+        Long id = 1L;
+        when(repository.findById(id)).thenReturn(Optional.empty());
+        assertThrows(RuntimeException.class, () -> service.getById(id));
+    }
+
 
 }

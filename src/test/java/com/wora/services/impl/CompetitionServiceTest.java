@@ -69,5 +69,4 @@ class CompetitionServiceTest {
         assertThrows(RuntimeException.class, () -> service.getById(id));
     }
 
-
 }

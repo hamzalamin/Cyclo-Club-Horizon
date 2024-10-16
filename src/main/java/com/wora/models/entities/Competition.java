@@ -47,6 +47,16 @@ public class Competition {
         this.rounds = rounds;
     }
 
+    public Competition(String name, LocalDate startDate, LocalDate endDate, String location, List<GeneralResult> generalResults, List<Round> rounds) {
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.location = location;
+        this.generalResults = generalResults;
+        this.rounds = rounds;
+    }
+
+
     public Long getId() {
         return id;
     }

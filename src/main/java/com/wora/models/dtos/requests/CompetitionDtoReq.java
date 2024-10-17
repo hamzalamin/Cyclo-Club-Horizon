@@ -1,8 +1,8 @@
-package com.wora.models.dtos;
+package com.wora.models.dtos.requests;
 
 import java.time.LocalDate;
 
-public record CompetitionDto(
+public record CompetitionDtoReq(
         LocalDate endDate,
         String location,
         String name,

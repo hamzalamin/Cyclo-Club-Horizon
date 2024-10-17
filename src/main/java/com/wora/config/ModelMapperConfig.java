@@ -1,6 +1,6 @@
 package com.wora.config;
 
-import com.wora.models.dtos.CompetitionDto;
+import com.wora.models.dtos.requests.CompetitionDtoReq;
 import com.wora.models.entities.Competition;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
@@ -13,9 +13,9 @@ public class ModelMapperConfig {
         ModelMapper mapper = new ModelMapper();
 
         mapper.addConverter(context -> {
-            CompetitionDto source = context.getSource();
+            CompetitionDtoReq source = context.getSource();
             return new Competition(source.name(), source.startDate(), source.endDate(), source.location());
-        }, CompetitionDto.class, Competition.class);
+        }, CompetitionDtoReq.class, Competition.class);
 
         return mapper;
     }

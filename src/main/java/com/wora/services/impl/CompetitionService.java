@@ -1,6 +1,6 @@
 package com.wora.services.impl;
 
-import com.wora.models.dtos.CompetitionDto;
+import com.wora.models.dtos.requests.CompetitionDtoReq;
 import com.wora.models.entities.Competition;
 import com.wora.repositories.CompetitionRepository;
 import com.wora.services.ICompetitionService;
@@ -21,29 +21,29 @@ public class CompetitionService implements ICompetitionService {
 
 
     @Override
-    public CompetitionDto create(CompetitionDto competitionDto) {
+    public CompetitionDtoReq create(CompetitionDtoReq competitionDto) {
         Competition competition = modelMapper.map(competitionDto, Competition.class);
         System.out.println(competition);
         Competition savedCompetition = competitionRepository.save(competition);
-        return modelMapper.map(savedCompetition, CompetitionDto.class);
+        return modelMapper.map(savedCompetition, CompetitionDtoReq.class);
     }
 
     @Override
-    public CompetitionDto getById(Long id) {
+    public CompetitionDtoReq getById(Long id) {
         Competition competition = competitionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Competition not found"));
-        return modelMapper.map(competition, CompetitionDto.class);
+        return modelMapper.map(competition, CompetitionDtoReq.class);
     }
 
     @Override
-    public List<CompetitionDto> getAll() {
+    public List<CompetitionDtoReq> getAll() {
         return competitionRepository.findAll().stream()
-                .map(competition -> modelMapper.map(competition, CompetitionDto.class))
+                .map(competition -> modelMapper.map(competition, CompetitionDtoReq.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public CompetitionDto update(Long id, CompetitionDto competitionDto) {
+    public CompetitionDtoReq update(Long id, CompetitionDtoReq competitionDto) {
         Competition competition = competitionRepository.findById(id).orElseThrow(() -> new RuntimeException("Competition not found"));
         competition.setName(competitionDto.name());
         competition.setName(competitionDto.name());
@@ -51,7 +51,7 @@ public class CompetitionService implements ICompetitionService {
         competition.setStartDate(competitionDto.startDate());
         competition.setEndDate(competitionDto.endDate());
         Competition updatedCompetition = competitionRepository.save(competition);
-        return modelMapper.map(updatedCompetition, CompetitionDto.class);
+        return modelMapper.map(updatedCompetition, CompetitionDtoReq.class);
     }
 
     @Override

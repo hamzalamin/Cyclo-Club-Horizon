@@ -1,6 +1,6 @@
 package com.wora.services.impl;
 
-import com.wora.models.dtos.CompetitionDto;
+import com.wora.models.dtos.requests.CompetitionDtoReq;
 import com.wora.models.entities.Competition;
 import com.wora.repositories.CompetitionRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -42,12 +42,12 @@ class CompetitionServiceTest {
 
         Competition competition = new Competition(name, startDate, endDate, location);
 
-        CompetitionDto competitionDto = new CompetitionDto(competition.getName(), competition.getStartDate(), competition.getEndDate(), competition.getLocation(), competition.getGeneralResults(), competition.getRounds());
+        CompetitionDtoReq competitionDto = new CompetitionDtoReq(competition.getStartDate(),  competition.getLocation(), competition.getName(), competition.getEndDate());
 
         when(repository.findById(id)).thenReturn(Optional.of(competition));
-        when(modelMapper.map(competition, CompetitionDto.class)).thenReturn(competitionDto);
+        when(modelMapper.map(competition, CompetitionDtoReq.class)).thenReturn(competitionDto);
 
-        CompetitionDto result = service.getById(id);
+        CompetitionDtoReq result = service.getById(id);
 
         assertEquals(competition.getName(), result.name());
         verify(repository).findById(id);

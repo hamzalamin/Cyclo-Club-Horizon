@@ -42,7 +42,7 @@ class CompetitionServiceTest {
 
         Competition competition = new Competition(name, startDate, endDate, location);
 
-        CompetitionDtoReq competitionDto = new CompetitionDtoReq(competition.getStartDate(),  competition.getLocation(), competition.getName(), competition.getEndDate());
+        CompetitionDtoReq competitionDto = new CompetitionDtoReq(competition.getName(), competition.getStartDate(), competition.getEndDate(), competition.getLocation());
 
         when(repository.findById(id)).thenReturn(Optional.of(competition));
         when(modelMapper.map(competition, CompetitionDtoReq.class)).thenReturn(competitionDto);

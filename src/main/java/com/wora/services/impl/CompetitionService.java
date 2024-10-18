@@ -32,14 +32,18 @@ public class CompetitionService implements ICompetitionService {
     public CompetitionDtoReq getById(Long id) {
         Competition competition = competitionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Competition not found"));
-        return modelMapper.map(competition, CompetitionDtoReq.class);
+
+        return toDtoRes(competition);
     }
 
     @Override
     public List<CompetitionDtoReq> getAll() {
-        return competitionRepository.findAll().stream()
-                .map(competition -> modelMapper.map(competition, CompetitionDtoReq.class))
+        List<CompetitionDtoReq> result = competitionRepository.findAll().stream()
+                .map(this::toDtoRes)
                 .collect(Collectors.toList());
+
+        System.out.println(result);
+        return result;
     }
 
     @Override
@@ -57,5 +61,13 @@ public class CompetitionService implements ICompetitionService {
     @Override
     public void delete(Long id) {
         competitionRepository.deleteById(id);
+    }
+
+    private CompetitionDtoReq toDtoRes(Competition competition) {
+        return new CompetitionDtoReq(competition.getName(),
+                competition.getStartDate(),
+                competition.getEndDate(),
+                competition.getLocation()
+        );
     }
 }

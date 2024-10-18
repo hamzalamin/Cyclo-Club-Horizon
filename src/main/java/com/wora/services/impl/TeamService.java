@@ -49,7 +49,8 @@ public class TeamService implements ITeamService {
         team.setName(teamDto.name());
         team.setName(teamDto.description());
         Team updatedTeam = teamRepository.save(team);
-        return modelMapper.map(updatedTeam, TeamDtoReq.class);    }
+        return modelMapper.map(updatedTeam, TeamDtoReq.class);
+    }
 
     @Override
     public void delete(Long id) {

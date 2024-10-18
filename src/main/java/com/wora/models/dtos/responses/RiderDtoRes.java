@@ -1,4 +1,4 @@
-package com.wora.models.dtos;
+package com.wora.models.dtos.responses;
 
 import com.wora.models.entities.GeneralResult;
 import com.wora.models.entities.RoundResult;
@@ -7,7 +7,7 @@ import com.wora.models.entities.Team;
 import java.time.LocalDate;
 import java.util.List;
 
-public record RiderDto(
+public record RiderDtoRes(
         String fName,
         String lName,
         LocalDate birthDate,

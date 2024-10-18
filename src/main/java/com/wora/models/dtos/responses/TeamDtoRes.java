@@ -1,11 +1,10 @@
-package com.wora.models.dtos;
+package com.wora.models.dtos.responses;
 
 import com.wora.models.entities.Rider;
-import com.wora.models.entities.embeddables.RoundResultId;
 
 import java.util.List;
 
-public record TeamDto(
+public record TeamDtoRes(
         String name,
         String description,
         List<Rider> riders

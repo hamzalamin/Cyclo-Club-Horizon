@@ -1,4 +1,6 @@
 package com.wora.services.impl;
 
-public class GeneralResultService {
+import com.wora.services.IGeneralResultService;
+
+public class GeneralResultService implements IGeneralResultService {
 }

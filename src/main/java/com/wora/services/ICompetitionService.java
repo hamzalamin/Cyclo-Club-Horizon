@@ -10,5 +10,4 @@ public interface ICompetitionService {
     List<CompetitionDtoReq> getAll();
     CompetitionDtoReq update(Long id, CompetitionDtoReq competitionDto);
     void delete(Long id);
-
 }

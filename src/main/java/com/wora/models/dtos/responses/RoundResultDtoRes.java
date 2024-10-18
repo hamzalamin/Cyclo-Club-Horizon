@@ -1,4 +1,4 @@
-package com.wora.models.dtos;
+package com.wora.models.dtos.responses;
 
 import com.wora.models.entities.Rider;
 import com.wora.models.entities.Round;
@@ -6,7 +6,7 @@ import com.wora.models.entities.embeddables.RoundResultId;
 
 import java.time.Duration;
 
-public record RoundResultDto(
+public record RoundResultDtoRes(
         RoundResultId id,
         Duration duration,
         Integer position,

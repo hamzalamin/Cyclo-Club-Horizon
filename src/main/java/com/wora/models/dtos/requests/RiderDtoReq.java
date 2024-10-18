@@ -1,4 +1,4 @@
-package com.wora.models.dtos.responses;
+package com.wora.models.dtos.requests;
 import java.time.LocalDate;
 
 

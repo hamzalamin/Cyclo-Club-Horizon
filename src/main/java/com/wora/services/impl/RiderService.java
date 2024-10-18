@@ -1,9 +1,7 @@
 package com.wora.services.impl;
 
-import com.wora.models.dtos.requests.TeamDtoReq;
-import com.wora.models.dtos.responses.RiderDtoReq;
+import com.wora.models.dtos.requests.RiderDtoReq;
 import com.wora.models.entities.Rider;
-import com.wora.models.entities.Team;
 import com.wora.repositories.RiderRepository;
 import com.wora.services.IRiderService;
 import org.modelmapper.ModelMapper;
@@ -65,7 +63,8 @@ public class RiderService implements IRiderService {
                 rider.getlName(),
                 rider.getBirthDate(),
                 rider.getNationality()
-//                rider.getTeam()
+//               rider.getTeam()
         );
     }
+
 }

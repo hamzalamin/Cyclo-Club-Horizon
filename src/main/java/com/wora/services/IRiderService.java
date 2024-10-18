@@ -1,5 +1,5 @@
 package com.wora.services;
-import com.wora.models.dtos.responses.RiderDtoReq;
+import com.wora.models.dtos.requests.RiderDtoReq;
 
 import java.util.List;
 

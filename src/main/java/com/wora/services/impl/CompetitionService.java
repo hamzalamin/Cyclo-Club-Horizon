@@ -23,7 +23,6 @@ public class CompetitionService implements ICompetitionService {
     @Override
     public CompetitionDtoReq create(CompetitionDtoReq competitionDto) {
         Competition competition = modelMapper.map(competitionDto, Competition.class);
-        System.out.println(competition);
         Competition savedCompetition = competitionRepository.save(competition);
         return modelMapper.map(savedCompetition, CompetitionDtoReq.class);
     }
@@ -41,8 +40,6 @@ public class CompetitionService implements ICompetitionService {
         List<CompetitionDtoReq> result = competitionRepository.findAll().stream()
                 .map(this::toDtoRes)
                 .collect(Collectors.toList());
-
-        System.out.println(result);
         return result;
     }
 

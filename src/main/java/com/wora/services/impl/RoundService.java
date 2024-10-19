@@ -5,6 +5,7 @@ import com.wora.models.entities.Round;
 import com.wora.repositories.RoundRepository;
 import com.wora.services.IRoundService;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,13 +13,11 @@ import java.util.stream.Collectors;
 
 @Service
 public class RoundService implements IRoundService {
-    private final ModelMapper modelMapper;
-    private final RoundRepository roundRepository;
+    @Autowired
+    private RoundRepository roundRepository;
 
-    public RoundService(ModelMapper modelMapper, RoundRepository roundRepository) {
-        this.modelMapper = modelMapper;
-        this.roundRepository = roundRepository;
-    }
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public RoundDtoReq create(RoundDtoReq roundDto) {

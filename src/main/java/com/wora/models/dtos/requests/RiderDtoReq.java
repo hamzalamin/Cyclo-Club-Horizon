@@ -7,6 +7,5 @@ public record RiderDtoReq(
         String lName,
         LocalDate birthDate,
         String nationality
-//        Team team
 ) {
 }

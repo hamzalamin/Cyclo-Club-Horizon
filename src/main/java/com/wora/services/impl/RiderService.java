@@ -5,6 +5,7 @@ import com.wora.models.entities.Rider;
 import com.wora.repositories.RiderRepository;
 import com.wora.services.IRiderService;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,16 +13,16 @@ import java.util.stream.Collectors;
 
 @Service
 public class RiderService implements IRiderService {
-    private final ModelMapper modelMapper;
-    private final RiderRepository riderRepository;
+    @Autowired
+    private  ModelMapper modelMapper;
+    @Autowired
+    private  RiderRepository riderRepository;
 
-    public RiderService(ModelMapper modelMapper, RiderRepository riderRepository) {
-        this.modelMapper = modelMapper;
-        this.riderRepository = riderRepository;
-    }
 
     @Override
     public RiderDtoReq create(RiderDtoReq riderDto) {
+
+
         Rider rider = modelMapper.map(riderDto, Rider.class);
         Rider savedRider = riderRepository.save(rider);
         return modelMapper.map(savedRider, RiderDtoReq.class);

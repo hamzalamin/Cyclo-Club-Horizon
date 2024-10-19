@@ -32,22 +32,18 @@ public class RoundResultService implements IRoundResultService {
     private RiderRepository riderRepository;
 
     @Override
-    public RoundResultDtoReq create(RoundResultDtoReq roundResultDtoReq, RoundResultDtoRes roundResultDtoRes) {
-        Long roundId = roundResultDtoRes.round().getId();
-        Long riderId = roundResultDtoRes.rider().getId();
+    public RoundResultDtoRes create(RoundResultDtoReq dto) {
+        Long roundId = dto.roundId();
+        Long riderId = dto.riderId();
 
         Round round = roundRepository.findById(roundId)
                 .orElseThrow(() -> new RuntimeException("Round not found with id " + roundId));
         Rider rider = riderRepository.findById(riderId)
                 .orElseThrow(() -> new RuntimeException("Rider not found with id " + riderId));
 
-        RoundResult roundResult = modelMapper.map(roundResultDtoReq, RoundResult.class);
-        roundResult.setRound(round);
-        roundResult.setRider(rider);
-        RoundResultId roundResultId = new RoundResultId(roundId, riderId);
-        roundResult.setId(roundResultId);
+        RoundResult roundResult = new RoundResult(round, rider);
         RoundResult savedRoundResult = roundResultRepository.save(roundResult);
-        return  modelMapper.map(savedRoundResult, RoundResultDtoReq.class);
+        return  modelMapper.map(savedRoundResult, RoundResultDtoRes.class);
     }
 
     @Override

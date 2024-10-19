@@ -7,7 +7,7 @@ import com.wora.models.entities.embeddables.RoundResultId;
 import java.util.List;
 
 public interface IRoundResultService {
-    RoundResultDtoReq create(RoundResultDtoReq roundResultDtoReq, RoundResultDtoRes roundResultDtoRes);
+    RoundResultDtoRes create(RoundResultDtoReq dto);
     RoundResultDtoRes getById(RoundResultId id);
     List<RoundResultDtoRes> getAll();
     RoundResultDtoReq update(RoundResultId id, RoundResultDtoReq roundResultDtoReq);

@@ -37,7 +37,6 @@ public class GeneralResultService implements IGeneralResultService {
                 .orElseThrow(() -> new RuntimeException("Rider with this Id is not found"));
 
         GeneralResult generalResult = new GeneralResult(competition, rider);
-
         GeneralResult savedGeneralResult = generalResultRepository.save(generalResult);
         return modelMapper.map(savedGeneralResult, GeneralResultDtoRes.class);
     }

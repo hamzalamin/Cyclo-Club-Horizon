@@ -1,5 +1,6 @@
 package com.wora.models.entities;
 
+import com.wora.models.entities.embeddables.GeneralResultId;
 import com.wora.models.entities.embeddables.RoundResultId;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -32,6 +33,13 @@ public class RoundResult {
 
     public RoundResult() {
     }
+
+    public RoundResult(Round round, Rider rider) {
+        this.id = new RoundResultId(rider.getId(), round.getId());
+        this.round = round;
+        this.rider = rider;
+    }
+
 
     public RoundResult(RoundResultId id, Duration duration, Integer position, Round round, Rider rider) {
         this.id = id;

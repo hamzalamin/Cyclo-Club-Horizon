@@ -4,7 +4,8 @@ import com.wora.models.entities.embeddables.RoundResultId;
 import java.time.Duration;
 
 public record RoundResultDtoReq(
-        RoundResultId id,
+        Long riderId,
+        Long roundId,
         Duration duration,
         Integer position
 ) {

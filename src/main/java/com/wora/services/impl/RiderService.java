@@ -1,8 +1,11 @@
 package com.wora.services.impl;
 
 import com.wora.models.dtos.requests.RiderDtoReq;
+import com.wora.models.dtos.responses.RiderDtoRes;
 import com.wora.models.entities.Rider;
+import com.wora.models.entities.Team;
 import com.wora.repositories.RiderRepository;
+import com.wora.repositories.TeamRepository;
 import com.wora.services.IRiderService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +20,17 @@ public class RiderService implements IRiderService {
     private  ModelMapper modelMapper;
     @Autowired
     private  RiderRepository riderRepository;
+    @Autowired
+    private TeamRepository teamRepository;
 
 
     @Override
-    public RiderDtoReq create(RiderDtoReq riderDto) {
-
-
+    public RiderDtoReq create(RiderDtoReq riderDto, RiderDtoRes riderDtoRes) {
+        Long teamId = riderDtoRes.team().getId();
+        Team team = teamRepository.findById(teamId)
+                .orElseThrow(() -> new RuntimeException("Team not found with id " + teamId));
         Rider rider = modelMapper.map(riderDto, Rider.class);
+        rider.setTeam(team);
         Rider savedRider = riderRepository.save(rider);
         return modelMapper.map(savedRider, RiderDtoReq.class);
     }

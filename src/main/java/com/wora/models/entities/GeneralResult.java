@@ -29,6 +29,12 @@ public class GeneralResult {
 
     public GeneralResult() {}
 
+    public GeneralResult(Competition competition, Rider rider) {
+        this.id = new GeneralResultId(rider.getId(), competition.getId());
+        this.competition = competition;
+        this.rider = rider;
+    }
+
     public GeneralResult(GeneralResultId id, Duration generalTime, Integer range, Competition competition, Rider rider) {
         this.id = id;
         this.generalTime = generalTime;
@@ -37,7 +43,7 @@ public class GeneralResult {
         this.rider = rider;
     }
 
-    public GeneralResultId getId() {
+    public GeneralResultId getId(GeneralResultId generalResultId) {
         return id;
     }
 

@@ -10,7 +10,7 @@ public record GeneralResultDtoRes(
         GeneralResultId id,
         Duration generalTime,
         Integer range,
-        Competition competition,
-        Rider rider
+        CompetitionDtoRes competition,
+        RiderDtoRes rider
 ) {
 }

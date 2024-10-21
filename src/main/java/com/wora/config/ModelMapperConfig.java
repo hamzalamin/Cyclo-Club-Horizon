@@ -31,7 +31,6 @@ public class ModelMapperConfig {
 
         mapper.addConverter(toCompetitionDtoReqConverter);
 
-
         return mapper;
     }
 

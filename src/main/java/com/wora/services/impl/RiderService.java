@@ -1,13 +1,14 @@
 package com.wora.services.impl;
 
-import com.wora.models.dtos.requests.RiderDtoReq;
-import com.wora.models.dtos.responses.RiderDtoRes;
+import com.wora.mappers.RiderMapper;
+import com.wora.models.dtos.rider.CreateRiderDto;
+import com.wora.models.dtos.rider.RiderDto;
+import com.wora.models.dtos.rider.UpdateRiderDto;
 import com.wora.models.entities.Rider;
 import com.wora.models.entities.Team;
 import com.wora.repositories.RiderRepository;
 import com.wora.repositories.TeamRepository;
 import com.wora.services.IRiderService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,47 +18,45 @@ import java.util.stream.Collectors;
 @Service
 public class RiderService implements IRiderService {
     @Autowired
-    private  ModelMapper modelMapper;
-    @Autowired
     private  RiderRepository riderRepository;
     @Autowired
     private TeamRepository teamRepository;
+    @Autowired
+    private RiderMapper riderMapper;
 
 
     @Override
-    public RiderDtoReq create(RiderDtoReq riderDto, RiderDtoRes riderDtoRes) {
-        Long teamId = riderDtoRes.team().getId();
+    public RiderDto create(CreateRiderDto riderDto) {
+        Long teamId = riderDto.teamId();
         Team team = teamRepository.findById(teamId)
                 .orElseThrow(() -> new RuntimeException("Team not found with id " + teamId));
-        Rider rider = modelMapper.map(riderDto, Rider.class);
+        Rider rider = riderMapper.createEntity(riderDto);
         rider.setTeam(team);
         Rider savedRider = riderRepository.save(rider);
-        return modelMapper.map(savedRider, RiderDtoReq.class);
+        return riderMapper.toDto(savedRider);
     }
 
     @Override
-    public RiderDtoReq getById(Long id) {
+    public RiderDto getById(Long id) {
         Rider rider = riderRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Rider not found"));
-        return toDtoRes(rider);
+        return riderMapper.toDto(rider);
     }
 
     @Override
-    public List<RiderDtoReq> getAll() {
-        List<RiderDtoReq> riders = riderRepository.findAll().stream()
-                .map(this::toDtoRes)
+    public List<RiderDto> getAll() {
+        List<RiderDto> riders = riderRepository.findAll().stream()
+                .map(riderMapper::toDto)
                 .collect(Collectors.toList());
         return riders;
     }
 
     @Override
-    public RiderDtoReq update(Long id, RiderDtoReq riderDto) {
+    public RiderDto update(Long id, UpdateRiderDto riderDto) {
         Rider rider = riderRepository.findById(id).orElseThrow(() -> new RuntimeException("Rider not found"));
-        rider.setfName(riderDto.fName());
-        rider.setfName(riderDto.lName());
-        rider.setfName(riderDto.nationality());
+        riderMapper.updateEntity(riderDto);
         Rider updateRider = riderRepository.save(rider);
-        return modelMapper.map(updateRider, RiderDtoReq.class);
+        return riderMapper.toDto(updateRider);
     }
 
     @Override
@@ -65,14 +64,4 @@ public class RiderService implements IRiderService {
         riderRepository.deleteById(id);
 
     }
-
-    private RiderDtoReq toDtoRes(Rider rider) {
-        return new RiderDtoReq(rider.getfName(),
-                rider.getlName(),
-                rider.getBirthDate(),
-                rider.getNationality()
-//               rider.getTeam()
-        );
-    }
-
 }

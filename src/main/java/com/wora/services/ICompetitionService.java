@@ -1,13 +1,15 @@
 package com.wora.services;
 
-import com.wora.models.dtos.requests.CompetitionDtoReq;
+import com.wora.models.dtos.competition.CompetitionDto;
+import com.wora.models.dtos.competition.CreateCompetitionDto;
+import com.wora.models.dtos.competition.UpdateCompetitionDto;
 
 import java.util.List;
 
 public interface ICompetitionService {
-    CompetitionDtoReq create(CompetitionDtoReq competitionDto);
-    CompetitionDtoReq getById(Long id);
-    List<CompetitionDtoReq> getAll();
-    CompetitionDtoReq update(Long id, CompetitionDtoReq competitionDto);
+    CreateCompetitionDto create(CreateCompetitionDto dto);
+    CompetitionDto getById(Long id);
+    List<CompetitionDto> getAll();
+    UpdateCompetitionDto update(Long id, UpdateCompetitionDto dto);
     void delete(Long id);
 }

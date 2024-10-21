@@ -2,8 +2,10 @@ package com.wora.mappers.api;
 
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface GenericMapper<Entity, Dto> {
-    Dto toDto(Dto dto);
-    Entity toEntity(Entity entity);
+    Dto toDto(Entity entity);
+    Entity toEntity(Dto dto);
+    Entity updateEntity(Dto dto);
+    Entity createEntity(Dto dto);
 }

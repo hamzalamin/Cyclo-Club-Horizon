@@ -1,10 +1,11 @@
 package com.wora.services.impl;
 
-import com.wora.models.dtos.requests.CompetitionDtoReq;
+import com.wora.models.dtos.competition.CompetitionDto;
+import com.wora.models.dtos.competition.CreateCompetitionDto;
+import com.wora.models.dtos.competition.UpdateCompetitionDto;
 import com.wora.models.entities.Competition;
 import com.wora.repositories.CompetitionRepository;
 import com.wora.services.ICompetitionService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,14 +22,14 @@ public class CompetitionService implements ICompetitionService {
 
 
     @Override
-    public CompetitionDtoReq create(CompetitionDtoReq competitionDto) {
+    public CreateCompetitionDto create(CreateCompetitionDto dto){
         Competition competition = modelMapper.map(competitionDto, Competition.class);
         Competition savedCompetition = competitionRepository.save(competition);
         return modelMapper.map(savedCompetition, CompetitionDtoReq.class);
     }
 
     @Override
-    public CompetitionDtoReq getById(Long id) {
+    public CompetitionDto getById(Long id) {
         Competition competition = competitionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Competition not found"));
 
@@ -36,7 +37,7 @@ public class CompetitionService implements ICompetitionService {
     }
 
     @Override
-    public List<CompetitionDtoReq> getAll() {
+    public List<CompetitionDto> getAll(){
         List<CompetitionDtoReq> result = competitionRepository.findAll().stream()
                 .map(this::toDtoRes)
                 .collect(Collectors.toList());
@@ -44,7 +45,7 @@ public class CompetitionService implements ICompetitionService {
     }
 
     @Override
-    public CompetitionDtoReq update(Long id, CompetitionDtoReq competitionDto) {
+    public UpdateCompetitionDto update(Long id, UpdateCompetitionDto dto) {
         Competition competition = competitionRepository.findById(id).orElseThrow(() -> new RuntimeException("Competition not found"));
         competition.setName(competitionDto.name());
         competition.setName(competitionDto.name());

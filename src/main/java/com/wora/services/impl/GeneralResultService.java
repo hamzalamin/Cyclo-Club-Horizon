@@ -1,7 +1,8 @@
 package com.wora.services.impl;
 
-import com.wora.models.dtos.requests.GeneralResultDtoReq;
-import com.wora.models.dtos.responses.GeneralResultDtoRes;
+import com.wora.mappers.GeneralResultMapper;
+import com.wora.models.dtos.generalResult.CreateGeneralResultDto;
+import com.wora.models.dtos.generalResult.GeneralResultDto;
 import com.wora.models.entities.Competition;
 import com.wora.models.entities.GeneralResult;
 import com.wora.models.entities.Rider;
@@ -9,7 +10,6 @@ import com.wora.repositories.CompetitionRepository;
 import com.wora.repositories.GeneralResultRepository;
 import com.wora.repositories.RiderRepository;
 import com.wora.services.IGeneralResultService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,15 +19,15 @@ public class GeneralResultService implements IGeneralResultService {
     @Autowired
     private GeneralResultRepository generalResultRepository;
     @Autowired
-    private ModelMapper modelMapper;
-    @Autowired
-    private CompetitionRepository competitionRepository;
+    private GeneralResultMapper generalResultMapper;
     @Autowired
     private RiderRepository riderRepository;
+    @Autowired
+    private CompetitionRepository competitionRepository;
 
 
     @Override
-    public GeneralResultDtoRes create(GeneralResultDtoReq dto) {
+    public GeneralResultDto create(CreateGeneralResultDto dto) {
         Long competitionId = dto.competitionId();
         Long riderId = dto.riderId();
 
@@ -36,8 +36,10 @@ public class GeneralResultService implements IGeneralResultService {
         Rider rider = riderRepository.findById(riderId)
                 .orElseThrow(() -> new RuntimeException("Rider with this Id is not found"));
 
-        GeneralResult generalResult = new GeneralResult(competition, rider);
+        GeneralResult generalResult = generalResultMapper.createEntity(dto);
+        generalResult.setRider(rider);
+        generalResult.setCompetition(competition);
         GeneralResult savedGeneralResult = generalResultRepository.save(generalResult);
-        return modelMapper.map(savedGeneralResult, GeneralResultDtoRes.class);
+        return generalResultMapper.toDto(savedGeneralResult);
     }
 }

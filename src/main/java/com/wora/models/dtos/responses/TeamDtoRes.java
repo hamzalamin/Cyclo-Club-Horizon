@@ -8,7 +8,6 @@ import java.util.List;
 public record TeamDtoRes(
         String name,
         String description,
-        Team team,
         List<Rider> riders
 ) {
 }

@@ -2,13 +2,16 @@ package com.wora.services;
 
 
 import com.wora.models.dtos.requests.RoundDtoReq;
+import com.wora.models.dtos.round.CreateRoundDto;
+import com.wora.models.dtos.round.RoundDto;
+import com.wora.models.dtos.round.UpdateRoundDto;
 
 import java.util.List;
 
 public interface IRoundService {
-    RoundDtoReq create(RoundDtoReq roundDto);
-    RoundDtoReq getById(Long id);
-    List<RoundDtoReq> getAll();
-    RoundDtoReq update(Long id, RoundDtoReq roundDto);
+    RoundDto create(CreateRoundDto roundDto);
+    RoundDto getById(Long id);
+    List<RoundDto> getAll();
+    RoundDto update(Long id, UpdateRoundDto roundDto);
     void delete(Long id);
 }

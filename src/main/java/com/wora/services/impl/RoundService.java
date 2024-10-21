@@ -1,10 +1,12 @@
 package com.wora.services.impl;
 
-import com.wora.models.dtos.requests.RoundDtoReq;
+import com.wora.mappers.RoundMapper;
+import com.wora.models.dtos.round.CreateRoundDto;
+import com.wora.models.dtos.round.RoundDto;
+import com.wora.models.dtos.round.UpdateRoundDto;
 import com.wora.models.entities.Round;
 import com.wora.repositories.RoundRepository;
 import com.wora.services.IRoundService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,38 +19,36 @@ public class RoundService implements IRoundService {
     private RoundRepository roundRepository;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private RoundMapper roundMapper;
 
     @Override
-    public RoundDtoReq create(RoundDtoReq roundDto) {
-        Round round = modelMapper.map(roundDto, Round.class);
+    public RoundDto create(CreateRoundDto roundDto) {
+        Round round = roundMapper.createEntity(roundDto);
         Round savedRound = roundRepository.save(round);
-        return modelMapper.map(savedRound, RoundDtoReq.class);
+        return roundMapper.toDto(savedRound);
     }
 
     @Override
-    public RoundDtoReq getById(Long id) {
+    public RoundDto getById(Long id) {
         Round round = roundRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Round not found"));
-        return toDtoRes(round);
+        return roundMapper.toDto(round);
     }
 
     @Override
-    public List<RoundDtoReq> getAll() {
+    public List<RoundDto> getAll() {
         return roundRepository.findAll().stream()
-                .map(this::toDtoRes)
+                .map(roundMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public RoundDtoReq update(Long id, RoundDtoReq roundDto) {
+    public RoundDto update(Long id, UpdateRoundDto roundDto) {
         Round round = roundRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Round not found"));
-        round.setStageNumber(roundDto.stageNumber());
-        round.setStartDte(roundDto.startDte());
-        round.setEndDte(roundDto.endDte());
+        roundMapper.updateEntity(roundDto);
         Round updatedRound = roundRepository.save(round);
-        return modelMapper.map(updatedRound, RoundDtoReq.class);
+        return roundMapper.toDto(updatedRound);
     }
 
     @Override
@@ -56,7 +56,4 @@ public class RoundService implements IRoundService {
         roundRepository.deleteById(id);
     }
 
-    private RoundDtoReq toDtoRes(Round round) {
-        return modelMapper.map(round, RoundDtoReq.class);
-    }
 }

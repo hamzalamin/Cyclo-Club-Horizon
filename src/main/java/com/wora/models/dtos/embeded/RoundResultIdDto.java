@@ -1,8 +1,8 @@
-package com.wora.models.entities.embeddables;
+package com.wora.models.dtos.embeded;
 
 import jakarta.validation.constraints.Positive;
 
-public record RoundResultId(
+public record RoundResultIdDto(
         @Positive Long riderId,
         @Positive Long roundId
 ) {

@@ -1,10 +1,8 @@
-package com.wora.models.entities.embeddables;
+package com.wora.models.dtos.embeded;
 
-import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.Positive;
 
-@Embeddable
-public record GeneralResultId(
+public record GeneralResultIdDto(
         @Positive Long riderId,
         @Positive Long competitionId
 ) {

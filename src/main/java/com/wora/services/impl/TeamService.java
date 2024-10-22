@@ -48,7 +48,9 @@ public class TeamService implements ITeamService {
     @Override
     public TeamDto update(Long id, UpdateTeamDto teamDto) {
         Team team = teamRepository.findById(id).orElseThrow(() -> new RuntimeException("Team not found"));
-        teamMapper.toEntity(teamDto);
+//        teamMapper.toEntity(teamDto);
+        team.setName(teamDto.name());
+        team.setDescription(teamDto.description());
         Team updatedTeam = teamRepository.save(team);
         return teamMapper.toDto(updatedTeam);
     }

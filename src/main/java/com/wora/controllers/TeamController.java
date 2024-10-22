@@ -30,4 +30,10 @@ public class TeamController {
         return new ResponseEntity<>(teams, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<TeamDto> getTeamById(@PathVariable Long id){
+        TeamDto team = teamService.getById(id);
+        return new ResponseEntity<>(team, HttpStatus.OK);
+    }
+
 }

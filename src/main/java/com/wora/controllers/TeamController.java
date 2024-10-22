@@ -3,13 +3,14 @@ package com.wora.controllers;
 import com.wora.mappers.TeamMapper;
 import com.wora.models.dtos.Team.CreateTeamDto;
 import com.wora.models.dtos.Team.TeamDto;
+import com.wora.models.entities.Team;
 import com.wora.services.impl.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
     @RequestMapping("/api/v1/teams")
@@ -21,6 +22,12 @@ public class TeamController {
     public ResponseEntity<TeamDto> createTeam(@RequestBody CreateTeamDto createTeamDto){
         TeamDto createdTeam = teamService.create(createTeamDto);
         return ResponseEntity.ok(createdTeam);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<TeamDto>> getAllTeams(){
+        List<TeamDto> teams = teamService.getAll();
+        return new ResponseEntity<>(teams, HttpStatus.OK);
     }
 
 }

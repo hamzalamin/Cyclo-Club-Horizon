@@ -4,7 +4,10 @@ import com.wora.mappers.RoundMapper;
 import com.wora.models.dtos.round.CreateRoundDto;
 import com.wora.models.dtos.round.RoundDto;
 import com.wora.models.dtos.round.UpdateRoundDto;
+import com.wora.models.entities.Competition;
 import com.wora.models.entities.Round;
+import com.wora.models.entities.Team;
+import com.wora.repositories.CompetitionRepository;
 import com.wora.repositories.RoundRepository;
 import com.wora.services.IRoundService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +23,16 @@ public class RoundService implements IRoundService {
 
     @Autowired
     private RoundMapper roundMapper;
+    @Autowired
+    private CompetitionRepository competitionRepository;
 
     @Override
     public RoundDto create(CreateRoundDto roundDto) {
+        Long competitionId = roundDto.competitionId();
+        Competition competition = competitionRepository.findById(competitionId)
+                .orElseThrow(() -> new RuntimeException("competition with this id " + competitionId +" is not found"));
         Round round = roundMapper.createEntity(roundDto);
+        round.setCompetition(competition);
         Round savedRound = roundRepository.save(round);
         return roundMapper.toDto(savedRound);
     }

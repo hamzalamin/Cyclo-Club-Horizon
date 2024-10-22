@@ -4,7 +4,6 @@ import com.wora.mappers.GeneralResultMapper;
 import com.wora.models.dtos.generalResult.CreateGeneralResultDto;
 import com.wora.models.dtos.generalResult.GeneralResultDto;
 import com.wora.models.dtos.generalResult.UpdateGeneralResultDto;
-import com.wora.models.dtos.roundResult.UpdateRoundResultDto;
 import com.wora.models.entities.Competition;
 import com.wora.models.entities.GeneralResult;
 import com.wora.models.entities.Rider;

@@ -12,14 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/teams")
+    @RequestMapping("/api/v1/teams")
 public class TeamController {
-
-    @Autowired
-    private TeamMapper teamMapper;
     @Autowired
     private TeamService teamService;
-
 
     @PostMapping
     public ResponseEntity<TeamDto> createTeam(@RequestBody CreateTeamDto createTeamDto){

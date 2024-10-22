@@ -4,7 +4,6 @@ import com.wora.mappers.TeamMapper;
 import com.wora.models.dtos.Team.CreateTeamDto;
 import com.wora.models.dtos.Team.TeamDto;
 import com.wora.models.dtos.Team.UpdateTeamDto;
-import com.wora.models.entities.Team;
 import com.wora.services.impl.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,7 +1,9 @@
 package com.wora.services.impl;
 
-import com.wora.models.dtos.requests.RoundResultDtoReq;
-import com.wora.models.dtos.responses.RoundResultDtoRes;
+import com.wora.mappers.RoundResultMapper;
+import com.wora.models.dtos.roundResult.CreateRoundResultDto;
+import com.wora.models.dtos.roundResult.RoundResultDto;
+import com.wora.models.dtos.roundResult.UpdateRoundResultDto;
 import com.wora.models.entities.Rider;
 import com.wora.models.entities.Round;
 import com.wora.models.entities.RoundResult;
@@ -10,7 +12,6 @@ import com.wora.repositories.RiderRepository;
 import com.wora.repositories.RoundRepository;
 import com.wora.repositories.RoundResultRepository;
 import com.wora.services.IRoundResultService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ public class RoundResultService implements IRoundResultService {
     private RoundResultRepository roundResultRepository;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private RoundResultMapper roundResultMapper;
 
     @Autowired
     private RoundRepository roundRepository;
@@ -32,7 +33,7 @@ public class RoundResultService implements IRoundResultService {
     private RiderRepository riderRepository;
 
     @Override
-    public RoundResultDtoRes create(RoundResultDtoReq dto) {
+    public RoundResultDto create(CreateRoundResultDto dto) {
         Long roundId = dto.roundId();
         Long riderId = dto.riderId();
 
@@ -41,35 +42,36 @@ public class RoundResultService implements IRoundResultService {
         Rider rider = riderRepository.findById(riderId)
                 .orElseThrow(() -> new RuntimeException("Rider not found with id " + riderId));
 
-        RoundResult roundResult = new RoundResult(round, rider);
+        RoundResult roundResult = roundResultMapper.createEntity(dto);
+        roundResult.setRound(round);
+        roundResult.setRider(rider);
         RoundResult savedRoundResult = roundResultRepository.save(roundResult);
-        return  modelMapper.map(savedRoundResult, RoundResultDtoRes.class);
+        return  roundResultMapper.toDto(savedRoundResult);
     }
 
     @Override
-    public RoundResultDtoRes getById(RoundResultId id) {
+    public RoundResultDto getById(RoundResultId id) {
         RoundResult roundResult =  roundResultRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Round result Id is not found"));
-        return todoRes(roundResult);
+        return roundResultMapper.toDto(roundResult);
     }
 
     @Override
-    public List<RoundResultDtoRes> getAll() {
-        List<RoundResultDtoRes> results = roundResultRepository.findAll().stream()
-                .map(this::todoRes)
+    public List<RoundResultDto> getAll() {
+        List<RoundResultDto> results = roundResultRepository.findAll().stream()
+                .map(roundResultMapper::toDto)
                 .collect(Collectors.toList());
         return results;
     }
 
     @Override
-    public RoundResultDtoReq update(RoundResultId id, RoundResultDtoReq roundResultDtoReq) {
+    public RoundResultDto update(RoundResultId id, UpdateRoundResultDto dto) {
         RoundResult existingRoundResult = roundResultRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Round result with Id not found"));
 
-        existingRoundResult.setDuration(roundResultDtoReq.duration());
-        existingRoundResult.setPosition(roundResultDtoReq.position());
+        roundResultMapper.updateEntity(dto);
         RoundResult updatedRoundResult = roundResultRepository.save(existingRoundResult);
-        return modelMapper.map(updatedRoundResult, RoundResultDtoReq.class);
+        return roundResultMapper.toDto(updatedRoundResult);
     }
 
 
@@ -81,14 +83,4 @@ public class RoundResultService implements IRoundResultService {
         roundResultRepository.delete(roundResult);
     }
 
-
-
-    private RoundResultDtoRes todoRes(RoundResult roundResult){
-        return new RoundResultDtoRes(roundResult.getId(),
-                roundResult.getDuration(),
-                roundResult.getPosition(),
-                roundResult.getRound(),
-                roundResult.getRider()
-        );
-    }
 }

@@ -4,11 +4,9 @@ import com.wora.models.dtos.rider.CreateRiderDto;
 import com.wora.models.dtos.rider.RiderDto;
 import com.wora.services.impl.RiderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/cyclists")
@@ -22,5 +20,13 @@ public class RiderController {
         RiderDto createRider = riderService.create(createRiderDto);
         return ResponseEntity.ok(createRider);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<RiderDto> getRiderById(@PathVariable("id") Long id){
+        RiderDto rider = riderService.getById(id);
+        return new ResponseEntity<>(rider, HttpStatus.OK);
+    }
+
+
 
 }

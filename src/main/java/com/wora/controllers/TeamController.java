@@ -1,6 +1,5 @@
 package com.wora.controllers;
 
-import com.wora.mappers.TeamMapper;
 import com.wora.models.dtos.Team.CreateTeamDto;
 import com.wora.models.dtos.Team.TeamDto;
 import com.wora.models.dtos.Team.UpdateTeamDto;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-    @RequestMapping("/api/v1/teams")
+@RequestMapping("/api/v1/teams")
 public class TeamController {
     @Autowired
     private TeamService teamService;

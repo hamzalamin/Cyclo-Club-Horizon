@@ -24,7 +24,7 @@ public class CompetitionService implements ICompetitionService {
 
     @Override
     public CompetitionDto create(CreateCompetitionDto competitionDto){
-        Competition competition = competitionMapper.createEntity(competitionDto);
+        Competition competition = competitionMapper.toEntity(competitionDto);
         Competition savedCompetition = competitionRepository.save(competition);
         return competitionMapper.toDto(savedCompetition);
     }
@@ -48,7 +48,7 @@ public class CompetitionService implements ICompetitionService {
     @Override
     public CompetitionDto update(Long id, UpdateCompetitionDto dto) {
         Competition competition = competitionRepository.findById(id).orElseThrow(() -> new RuntimeException("Competition not found"));
-        competitionMapper.updateEntity(dto);
+        competitionMapper.toEntity(dto);
         Competition updatedCompetition = competitionRepository.save(competition);
         return competitionMapper.toDto(updatedCompetition);
     }

@@ -1,20 +1,16 @@
 package com.wora;
 
 import com.wora.config.AppConfig;
-import com.wora.config.ModelMapperConfig;
-import com.wora.models.dtos.requests.CompetitionDtoReq;
-import com.wora.models.entities.Competition;
 import com.wora.services.ICompetitionService;
 import com.wora.services.impl.CompetitionService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world!");
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class, ModelMapperConfig.class);
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
         ICompetitionService competitionService = context.getBean(CompetitionService.class);
 
 
@@ -54,12 +50,12 @@ public class Main {
 //        System.out.println("End Date: " + competition.endDate());
 
 
-        //todo: get all competitions
-        List<CompetitionDtoReq> competitions = competitionService.getAll();
-        System.out.println("Competitions:");
-        for (CompetitionDtoReq competition : competitions) {
-            System.out.printf("Name: %s, Start Date: %s, End Date: %s, Location: %s%n",
-                    competition.name(), competition.startDate(), competition.endDate(), competition.location());
-        }
+//        //todo: get all competitions
+//        List<CompetitionDtoReq> competitions = competitionService.getAll();
+//        System.out.println("Competitions:");
+//        for (CompetitionDtoReq competition : competitions) {
+//            System.out.printf("Name: %s, Start Date: %s, End Date: %s, Location: %s%n",
+//                    competition.name(), competition.startDate(), competition.endDate(), competition.location());
+//        }
     }
 }

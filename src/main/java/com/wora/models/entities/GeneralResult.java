@@ -20,11 +20,11 @@ public class GeneralResult {
     private Integer range;
 
     @ManyToOne
-    @MapKey
+    @MapsId("competitionId")
     private Competition competition;
 
     @ManyToOne
-    @MapKey
+    @MapsId("riderId")
     private Rider rider;
 
     public GeneralResult() {}

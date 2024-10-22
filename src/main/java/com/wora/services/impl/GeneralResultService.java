@@ -41,7 +41,7 @@ public class GeneralResultService implements IGeneralResultService {
         Rider rider = riderRepository.findById(riderId)
                 .orElseThrow(() -> new RuntimeException("Rider with this Id is not found"));
 
-        GeneralResult generalResult = generalResultMapper.createEntity(dto);
+        GeneralResult generalResult = generalResultMapper.toEntity(dto);
         generalResult.setRider(rider);
         generalResult.setCompetition(competition);
         GeneralResult savedGeneralResult = generalResultRepository.save(generalResult);
@@ -68,7 +68,7 @@ public class GeneralResultService implements IGeneralResultService {
     public GeneralResultDto update(GeneralResultId id, UpdateGeneralResultDto dto) {
         GeneralResult existingGeneralResult = generalResultRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("result with this id "+ id +" not found"));
-        generalResultMapper.updateEntity(dto);
+        generalResultMapper.toEntity(dto);
         GeneralResult generalResult = generalResultRepository.save(existingGeneralResult);
         return generalResultMapper.toDto(generalResult);
     }

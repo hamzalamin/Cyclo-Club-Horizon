@@ -31,7 +31,7 @@ public class RoundService implements IRoundService {
         Long competitionId = roundDto.competitionId();
         Competition competition = competitionRepository.findById(competitionId)
                 .orElseThrow(() -> new RuntimeException("competition with this id " + competitionId +" is not found"));
-        Round round = roundMapper.createEntity(roundDto);
+        Round round = roundMapper.toEntity(roundDto);
         round.setCompetition(competition);
         Round savedRound = roundRepository.save(round);
         return roundMapper.toDto(savedRound);
@@ -55,7 +55,7 @@ public class RoundService implements IRoundService {
     public RoundDto update(Long id, UpdateRoundDto roundDto) {
         Round round = roundRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Round not found"));
-        roundMapper.updateEntity(roundDto);
+        roundMapper.toEntity(roundDto);
         Round updatedRound = roundRepository.save(round);
         return roundMapper.toDto(updatedRound);
     }

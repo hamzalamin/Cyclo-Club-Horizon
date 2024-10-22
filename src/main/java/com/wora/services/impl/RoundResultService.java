@@ -42,7 +42,7 @@ public class RoundResultService implements IRoundResultService {
         Rider rider = riderRepository.findById(riderId)
                 .orElseThrow(() -> new RuntimeException("Rider not found with id " + riderId));
 
-        RoundResult roundResult = roundResultMapper.createEntity(dto);
+        RoundResult roundResult = roundResultMapper.toEntity(dto);
         roundResult.setRound(round);
         roundResult.setRider(rider);
         RoundResult savedRoundResult = roundResultRepository.save(roundResult);
@@ -69,7 +69,7 @@ public class RoundResultService implements IRoundResultService {
         RoundResult existingRoundResult = roundResultRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Round result with Id not found"));
 
-        roundResultMapper.updateEntity(dto);
+        roundResultMapper.toEntity(dto);
         RoundResult updatedRoundResult = roundResultRepository.save(existingRoundResult);
         return roundResultMapper.toDto(updatedRoundResult);
     }

@@ -9,8 +9,8 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface TeamMapper extends GenericMapper<Team, TeamDto> {
-    Team toEntity(TeamDto dto);
-    Team createEntity(CreateTeamDto dto);
-    Team updateEntity(UpdateTeamDto dto);
+//    Team toEntity(TeamDto dto);
+    Team toEntity(CreateTeamDto dto);
+    Team toEntity(UpdateTeamDto dto);
     TeamDto toDto(Team entity);
 }

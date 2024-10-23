@@ -20,7 +20,7 @@ public class RiderController {
     private RiderService riderService;
 
     @PostMapping
-    public ResponseEntity<RiderDto> createRider(@RequestBody CreateRiderDto createRiderDto){
+    public ResponseEntity<RiderDto> createRider(@RequestBody @Valid CreateRiderDto createRiderDto){
         RiderDto createRider = riderService.create(createRiderDto);
         return ResponseEntity.ok(createRider);
     }

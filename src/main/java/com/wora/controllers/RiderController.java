@@ -2,7 +2,9 @@ package com.wora.controllers;
 
 import com.wora.models.dtos.rider.CreateRiderDto;
 import com.wora.models.dtos.rider.RiderDto;
+import com.wora.models.dtos.rider.UpdateRiderDto;
 import com.wora.services.impl.RiderService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,5 +37,10 @@ public class RiderController {
         return new ResponseEntity<>(riders, HttpStatus.OK);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<RiderDto> updateRider(@PathVariable("id") Long id, @RequestBody @Valid UpdateRiderDto updateRiderDto){
+        RiderDto rider = riderService.update(id, updateRiderDto);
+        return new ResponseEntity<>(rider, HttpStatus.OK);
+    }
 
 }

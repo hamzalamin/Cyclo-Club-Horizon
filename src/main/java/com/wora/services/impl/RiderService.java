@@ -53,8 +53,14 @@ public class RiderService implements IRiderService {
 
     @Override
     public RiderDto update(Long id, UpdateRiderDto riderDto) {
+        System.out.println(riderDto);
         Rider rider = riderRepository.findById(id).orElseThrow(() -> new RuntimeException("Rider not found"));
-        riderMapper.toEntity(riderDto);
+        Team team = teamRepository.findById(riderDto.teamId()).orElseThrow(() -> new RuntimeException("Team not found"));
+        rider.setfName(riderDto.fName());
+        rider.setlName(riderDto.lName());
+        rider.setBirthDate(riderDto.birthDate());
+        rider.setNationality(riderDto.nationality());
+        rider.setTeam(team);
         Rider updateRider = riderRepository.save(rider);
         return riderMapper.toDto(updateRider);
     }

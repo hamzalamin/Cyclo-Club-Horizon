@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/stages")
 public class RoundController {
@@ -21,6 +23,13 @@ public class RoundController {
     public ResponseEntity<RoundDto> createRound(@RequestBody @Valid CreateRoundDto roundDto){
         return new ResponseEntity<>(roundService.create(roundDto), HttpStatus.OK);
     }
+
+    @GetMapping
+    public  ResponseEntity<List<RoundDto>> getAllRounds(){
+        List<RoundDto> rounds = roundService.getAll();
+        return new ResponseEntity<>(rounds, HttpStatus.OK);
+    }
+
 
 
 }

@@ -34,7 +34,6 @@ public class Competition {
     private List<GeneralResult> generalResults;
 
     @OneToMany(mappedBy = "competition", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonIgnore
     private List<Round> rounds;
 
     public Competition(){}

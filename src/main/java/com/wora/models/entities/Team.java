@@ -1,5 +1,6 @@
 package com.wora.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import java.util.List;
@@ -20,6 +21,7 @@ public class Team {
     private String description;
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Rider> riders;
 
     public Team() {

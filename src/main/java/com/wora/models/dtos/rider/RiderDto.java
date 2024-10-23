@@ -1,7 +1,7 @@
 package com.wora.models.dtos.rider;
 
 import com.wora.models.dtos.generalResult.EmbeddedGeneralResultDto;
-import com.wora.models.entities.RoundResult;
+import com.wora.models.dtos.roundResult.EmbeddedRoundResultDto;
 import com.wora.models.entities.Team;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -18,6 +18,6 @@ public record RiderDto(
         @NotBlank String nationality,
         Team team,
         List<EmbeddedGeneralResultDto> generalResults,
-        List<RoundResult> roundResults
+        List<EmbeddedRoundResultDto> roundResults
 ) {
 }

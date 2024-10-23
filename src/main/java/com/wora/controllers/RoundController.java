@@ -3,6 +3,7 @@ package com.wora.controllers;
 
 import com.wora.models.dtos.round.CreateRoundDto;
 import com.wora.models.dtos.round.RoundDto;
+import com.wora.models.dtos.round.UpdateRoundDto;
 import com.wora.services.impl.RoundService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,13 @@ public class RoundController {
     public ResponseEntity<RoundDto> getRoundById(@PathVariable("id") Long id){
         return new ResponseEntity<>(roundService.getById(id), HttpStatus.OK);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<RoundDto> updateRound(@PathVariable("id") Long id, @RequestBody @Valid UpdateRoundDto updateRoundDto){
+        return new ResponseEntity<>(roundService.update(id, updateRoundDto), HttpStatus.OK);
+    }
+
+
 
 
 }

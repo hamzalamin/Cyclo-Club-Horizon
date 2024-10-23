@@ -54,7 +54,10 @@ public class RoundService implements IRoundService {
     public RoundDto update(Long id, UpdateRoundDto roundDto) {
         Round round = roundRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Round not found"));
-        roundMapper.toEntity(roundDto);
+
+        round.setStageNumber(roundDto.stageNumber());
+        round.setStartDte(roundDto.startDte());
+        round.setEndDte(roundDto.endDte());
         Round updatedRound = roundRepository.save(round);
         return roundMapper.toDto(updatedRound);
     }

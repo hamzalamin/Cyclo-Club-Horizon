@@ -1,6 +1,7 @@
 package com.wora.models.dtos.competition;
 
 import com.wora.models.dtos.generalResult.EmbeddedGeneralResultDto;
+import com.wora.models.dtos.round.EmbeddedRoundDto;
 import com.wora.models.entities.Round;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -16,7 +17,7 @@ public record CompetitionDto(
         @NotNull LocalDate endDate,
         @NotBlank String location,
         List<EmbeddedGeneralResultDto> generalResults,
-        List<Round> rounds
+        List<EmbeddedRoundDto> rounds
 ) {
 
 }

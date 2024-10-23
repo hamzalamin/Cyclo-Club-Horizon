@@ -2,6 +2,7 @@ package com.wora.controllers;
 
 import com.wora.models.dtos.competition.CompetitionDto;
 import com.wora.models.dtos.competition.CreateCompetitionDto;
+import com.wora.models.dtos.competition.UpdateCompetitionDto;
 import com.wora.services.impl.CompetitionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,12 @@ public class CompetitionController {
     public ResponseEntity<List<CompetitionDto>> getAllCompetitions(){
         List<CompetitionDto> competitions = competitionService.getAll();
         return new ResponseEntity<>(competitions, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CompetitionDto> updateCompetition(@PathVariable("id") Long id,@RequestBody @Valid UpdateCompetitionDto updateCompetitionDto) {
+        CompetitionDto competition = competitionService.update(id, updateCompetitionDto);
+        return new ResponseEntity<>(competition, HttpStatus.OK);
     }
 
 }

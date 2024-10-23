@@ -48,7 +48,10 @@ public class CompetitionService implements ICompetitionService {
     @Override
     public CompetitionDto update(Long id, UpdateCompetitionDto dto) {
         Competition competition = competitionRepository.findById(id).orElseThrow(() -> new RuntimeException("Competition not found"));
-        competitionMapper.toEntity(dto);
+        competition.setName(dto.name());
+        competition.setStartDate(dto.startDate());
+        competition.setEndDate(dto.endDate());
+        competition.setLocation(dto.location());
         Competition updatedCompetition = competitionRepository.save(competition);
         return competitionMapper.toDto(updatedCompetition);
     }

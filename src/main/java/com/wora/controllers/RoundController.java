@@ -25,11 +25,15 @@ public class RoundController {
     }
 
     @GetMapping
-    public  ResponseEntity<List<RoundDto>> getAllRounds(){
+    public ResponseEntity<List<RoundDto>> getAllRounds(){
         List<RoundDto> rounds = roundService.getAll();
         return new ResponseEntity<>(rounds, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<RoundDto> getRoundById(@PathVariable("id") Long id){
+        return new ResponseEntity<>(roundService.getById(id), HttpStatus.OK);
+    }
 
 
 }

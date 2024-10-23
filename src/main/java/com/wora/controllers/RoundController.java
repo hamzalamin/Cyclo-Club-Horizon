@@ -41,7 +41,11 @@ public class RoundController {
         return new ResponseEntity<>(roundService.update(id, updateRoundDto), HttpStatus.OK);
     }
 
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteRound(@PathVariable("id") Long id){
+        roundService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 
 }

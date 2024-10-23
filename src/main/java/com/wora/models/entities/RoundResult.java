@@ -1,6 +1,5 @@
 package com.wora.models.entities;
 
-import com.wora.models.entities.embeddables.GeneralResultId;
 import com.wora.models.entities.embeddables.RoundResultId;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

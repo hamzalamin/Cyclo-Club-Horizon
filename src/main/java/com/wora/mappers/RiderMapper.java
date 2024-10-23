@@ -9,7 +9,6 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface RiderMapper extends GenericMapper<Rider, RiderDto> {
-//    Rider toEntity(RiderDto dto);
     Rider toEntity(CreateRiderDto dto);
     Rider toEntity(UpdateRiderDto dto);
     RiderDto toDto(Rider rider);

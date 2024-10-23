@@ -6,7 +6,6 @@ import com.wora.models.dtos.round.RoundDto;
 import com.wora.models.dtos.round.UpdateRoundDto;
 import com.wora.models.entities.Competition;
 import com.wora.models.entities.Round;
-import com.wora.models.entities.Team;
 import com.wora.repositories.CompetitionRepository;
 import com.wora.repositories.RoundRepository;
 import com.wora.services.IRoundService;

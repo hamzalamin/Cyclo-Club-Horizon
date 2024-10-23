@@ -9,7 +9,6 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface RoundMapper extends GenericMapper<Round, RoundDto> {
-//    Round toEntity(RoundDto dto);
     Round toEntity(CreateRoundDto dto);
     Round toEntity(UpdateRoundDto dto);
     RoundDto toDto(Round round);

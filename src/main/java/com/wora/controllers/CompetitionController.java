@@ -3,6 +3,7 @@ package com.wora.controllers;
 import com.wora.models.dtos.competition.CompetitionDto;
 import com.wora.models.dtos.competition.CreateCompetitionDto;
 import com.wora.models.dtos.competition.UpdateCompetitionDto;
+import com.wora.services.ICompetitionService;
 import com.wora.services.impl.CompetitionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import java.util.List;
 public class CompetitionController {
 
     @Autowired
-    private CompetitionService competitionService;
+    private ICompetitionService competitionService;
 
     @PostMapping
     public ResponseEntity<CompetitionDto> createCompetition(@RequestBody @Valid CreateCompetitionDto competitionDto){

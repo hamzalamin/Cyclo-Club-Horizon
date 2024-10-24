@@ -22,11 +22,11 @@ public class RoundResult {
     @Positive
     private Integer position;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @MapsId("roundId")
     private Round round;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @MapsId("riderId")
     private Rider rider;
 

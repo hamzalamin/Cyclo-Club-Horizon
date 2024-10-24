@@ -3,7 +3,7 @@ package com.wora.controllers;
 import com.wora.models.dtos.Team.CreateTeamDto;
 import com.wora.models.dtos.Team.TeamDto;
 import com.wora.models.dtos.Team.UpdateTeamDto;
-import com.wora.services.impl.TeamService;
+import com.wora.services.ITeamService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("/api/v1/teams")
 public class TeamController {
     @Autowired
-    private TeamService teamService;
+    private ITeamService teamService;
 
     @PostMapping
     public ResponseEntity<TeamDto> createTeam(@RequestBody @Valid CreateTeamDto createTeamDto){

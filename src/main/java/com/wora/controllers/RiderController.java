@@ -3,6 +3,7 @@ package com.wora.controllers;
 import com.wora.models.dtos.rider.CreateRiderDto;
 import com.wora.models.dtos.rider.RiderDto;
 import com.wora.models.dtos.rider.UpdateRiderDto;
+import com.wora.services.IRiderService;
 import com.wora.services.impl.RiderService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import java.util.List;
 public class RiderController {
 
     @Autowired
-    private RiderService riderService;
+    private IRiderService riderService;
 
     @PostMapping
     public ResponseEntity<RiderDto> createRider(@RequestBody @Valid CreateRiderDto createRiderDto){

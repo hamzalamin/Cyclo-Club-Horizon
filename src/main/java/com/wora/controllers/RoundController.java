@@ -4,6 +4,7 @@ package com.wora.controllers;
 import com.wora.models.dtos.round.CreateRoundDto;
 import com.wora.models.dtos.round.RoundDto;
 import com.wora.models.dtos.round.UpdateRoundDto;
+import com.wora.services.IRoundService;
 import com.wora.services.impl.RoundService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import java.util.List;
 public class RoundController {
 
     @Autowired
-    private RoundService roundService;
+    private IRoundService roundService;
 
     @PostMapping
     public ResponseEntity<RoundDto> createRound(@RequestBody @Valid CreateRoundDto roundDto){

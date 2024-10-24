@@ -12,6 +12,7 @@ import com.wora.repositories.RiderRepository;
 import com.wora.repositories.RoundRepository;
 import com.wora.repositories.RoundResultRepository;
 import com.wora.services.IRoundResultService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +34,9 @@ public class RoundResultService implements IRoundResultService {
     private RiderRepository riderRepository;
 
     @Override
+    @Transactional
     public RoundResultDto create(CreateRoundResultDto dto) {
+        System.out.println("tprinta hna ola nch3el mea inaaak " + dto);
         Long roundId = dto.roundId();
         Long riderId = dto.riderId();
 
@@ -42,11 +45,12 @@ public class RoundResultService implements IRoundResultService {
         Rider rider = riderRepository.findById(riderId)
                 .orElseThrow(() -> new RuntimeException("Rider not found with id " + riderId));
 
+
         RoundResult roundResult = roundResultMapper.toEntity(dto);
-        roundResult.setRound(round);
         roundResult.setRider(rider);
+        roundResult.setRound(round);
         RoundResult savedRoundResult = roundResultRepository.save(roundResult);
-        return  roundResultMapper.toDto(savedRoundResult);
+        return roundResultMapper.toDto(savedRoundResult);
     }
 
     @Override

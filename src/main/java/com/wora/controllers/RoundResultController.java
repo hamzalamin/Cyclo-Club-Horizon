@@ -2,6 +2,7 @@ package com.wora.controllers;
 
 import com.wora.models.dtos.roundResult.CreateRoundResultDto;
 import com.wora.models.dtos.roundResult.RoundResultDto;
+import com.wora.models.entities.RoundResult;
 import com.wora.models.entities.embeddables.RoundResultId;
 import com.wora.services.IRoundResultService;
 import com.wora.services.impl.RoundResultService;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/stage-results")
@@ -30,6 +33,12 @@ public class RoundResultController {
         RoundResultId id = new RoundResultId(riderId, roundId);
         RoundResultDto roundResult = roundResultService.getById(id);
         return new ResponseEntity<>(roundResult, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<RoundResultDto>> getAllRoundResults(){
+        List<RoundResultDto> roundResults = roundResultService.getAll();
+        return new ResponseEntity<>(roundResults, HttpStatus.OK);
     }
 
 

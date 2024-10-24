@@ -45,7 +45,6 @@ public class RoundResultService implements IRoundResultService {
         Rider rider = riderRepository.findById(riderId)
                 .orElseThrow(() -> new RuntimeException("Rider not found with id " + riderId));
 
-
         RoundResult roundResult = roundResultMapper.toEntity(dto);
         roundResult.setRider(rider);
         roundResult.setRound(round);

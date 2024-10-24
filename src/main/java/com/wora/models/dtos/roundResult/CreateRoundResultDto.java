@@ -7,7 +7,7 @@ import java.time.Duration;
 
 public record CreateRoundResultDto(
         @NotNull Duration duration,
-        @NotNull Integer position,
+        Integer position,
         @Positive Long roundId,
         @Positive Long riderId
 ) {

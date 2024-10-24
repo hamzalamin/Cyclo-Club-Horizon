@@ -17,9 +17,7 @@ public class RoundResult {
     @Column(name = "duration", nullable = false)
     private Duration duration;
 
-    @NotNull
-    @Column(name = "position", nullable = false)
-    @Positive
+    @Column(name = "position")
     private Integer position;
 
     @ManyToOne(cascade = CascadeType.ALL)

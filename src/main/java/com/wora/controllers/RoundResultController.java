@@ -20,7 +20,6 @@ public class RoundResultController {
 
     @PostMapping
     public ResponseEntity<RoundResultDto> createRoundResult(@RequestBody CreateRoundResultDto createRoundResultDto){
-        System.out.println(roundResultService);
         return new ResponseEntity<>(roundResultService.create(createRoundResultDto), HttpStatus.OK);
     }
 

@@ -68,22 +68,25 @@ public class RoundResultService implements IRoundResultService {
     }
 
     @Override
+    @Transactional
     public RoundResultDto update(RoundResultId id, UpdateRoundResultDto dto) {
-        RoundResult existingRoundResult = roundResultRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Round result with Id not found"));
+        RoundResult existingRoundResult = roundResultRepository.findById(id).orElseThrow(() -> new RuntimeException("Round result with Id not found"));
+        Rider rider = riderRepository.findById(dto.riderId()).orElseThrow(() -> new RuntimeException("Rider not found"));
+        Round round = roundRepository.findById(dto.roundId()).orElseThrow(() -> new RuntimeException("Round not found"));
 
-        roundResultMapper.toEntity(dto);
+        existingRoundResult.setRider(rider);
+        existingRoundResult.setRound(round);
+        existingRoundResult.setPosition(dto.position());
+        existingRoundResult.setDuration(dto.duration());
         RoundResult updatedRoundResult = roundResultRepository.save(existingRoundResult);
         return roundResultMapper.toDto(updatedRoundResult);
     }
 
 
     @Override
+    @Transactional
     public void delete(RoundResultId id) {
-        RoundResult roundResult = roundResultRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Round result with Id not found"));
-
-        roundResultRepository.delete(roundResult);
+        roundResultRepository.deleteById(id);
     }
 
 }

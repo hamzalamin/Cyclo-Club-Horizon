@@ -85,4 +85,15 @@ public class RoundResult {
     public void setRider(Rider rider) {
         this.rider = rider;
     }
+
+    @Override
+    public String toString() {
+        return "RoundResult{" +
+                "id=" + id +
+                ", duration=" + duration +
+                ", position=" + position +
+                ", round=" + round +
+                ", rider=" + rider +
+                '}';
+    }
 }

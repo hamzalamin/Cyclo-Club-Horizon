@@ -60,14 +60,6 @@ public class RoundService implements IRoundService {
         Round round = roundRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Round not found"));
 
-        Long competitionId = roundDto.competitionId();
-        Competition competition = competitionRepository.findById(competitionId)
-                .orElseThrow(() -> new RuntimeException("competition with this id " + competitionId +" is not found"));
-
-        if (competition.getIsClosed() == true){
-            throw new RuntimeException("This competition is closed you cant add round in it");
-        }
-
         round.setStageNumber(roundDto.stageNumber());
         round.setStartDte(roundDto.startDte());
         round.setEndDte(roundDto.endDte());

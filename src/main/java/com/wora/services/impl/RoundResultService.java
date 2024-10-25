@@ -4,9 +4,7 @@ import com.wora.exception.EntityNotFoundException;
 import com.wora.mappers.RoundResultMapper;
 import com.wora.models.dtos.roundResult.CreateRoundResultDto;
 import com.wora.models.dtos.roundResult.RoundResultDto;
-import com.wora.models.entities.Rider;
-import com.wora.models.entities.Round;
-import com.wora.models.entities.RoundResult;
+import com.wora.models.entities.*;
 import com.wora.models.entities.embeddables.GeneralResultId;
 import com.wora.models.entities.embeddables.RoundResultId;
 import com.wora.repositories.RiderRepository;
@@ -46,7 +44,11 @@ public class RoundResultService implements IRoundResultService {
         Rider rider = riderRepository.findById(riderId)
                 .orElseThrow(() -> new RuntimeException("Rider not found with id " + riderId));
 
-        if (round.getIsClosed() == true){
+        if (!isRiderExistInCompetition(rider, round)){
+            throw new RuntimeException("rider is not exist in this Competition");
+        }
+
+        if (round.getIsClosed()){
             throw new RuntimeException("Cannot add round result; the round is closed.");
         }
 
@@ -72,18 +74,18 @@ public class RoundResultService implements IRoundResultService {
         return results;
     }
 
-//    @Override
-//    @Transactional
-//    public void delete(RoundResultId id) {
-//        roundResultRepository.deleteById(id);
-//    }
-
     @Override
     @Transactional
     public void delete(RoundResultId id) {
         if (!roundResultRepository.existsById(id))
             throw new EntityNotFoundException("General result ", id);
         roundResultRepository.deleteByRoundResultId(id.riderId(), id.roundId());
+    }
+
+    private boolean isRiderExistInCompetition(Rider rider , Round round){
+        return rider.getGeneralResults().stream()
+                .map(GeneralResult::getCompetition)
+                .anyMatch(competition -> round.getCompetition().getId().equals(competition.getId()));
     }
 
 }

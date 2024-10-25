@@ -12,6 +12,7 @@ import com.wora.repositories.CompetitionRepository;
 import com.wora.repositories.GeneralResultRepository;
 import com.wora.repositories.RiderRepository;
 import com.wora.services.IGeneralResultService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,9 +42,7 @@ public class GeneralResultService implements IGeneralResultService {
         Rider rider = riderRepository.findById(riderId)
                 .orElseThrow(() -> new RuntimeException("Rider with this Id is not found"));
 
-        GeneralResult generalResult = generalResultMapper.toEntity(dto);
-        generalResult.setRider(rider);
-        generalResult.setCompetition(competition);
+        GeneralResult generalResult = new GeneralResult(competition, rider);
         GeneralResult savedGeneralResult = generalResultRepository.save(generalResult);
         return generalResultMapper.toDto(savedGeneralResult);
     }

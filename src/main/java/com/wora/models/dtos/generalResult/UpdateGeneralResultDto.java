@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import java.time.Duration;
 
 public record UpdateGeneralResultDto(
-        @NotNull Duration duration,
-        @NotNull Integer position
+        @NotNull Duration generalTime,
+        @NotNull Integer range
 ) {
 }

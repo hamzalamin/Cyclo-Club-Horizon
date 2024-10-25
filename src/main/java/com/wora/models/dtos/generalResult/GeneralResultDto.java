@@ -9,9 +9,9 @@ import java.time.Duration;
 
 public record GeneralResultDto(
         GeneralResultIdDto id,
-        @NotNull Duration duration,
-        @NotNull Integer position,
-        @NotNull EmbeddedCompetitionDto competition,
+        @NotNull Duration generalTime,
+        @NotNull Integer range,
+        EmbeddedCompetitionDto competition,
         EmbeddedRiderDto rider
 ) {
 }

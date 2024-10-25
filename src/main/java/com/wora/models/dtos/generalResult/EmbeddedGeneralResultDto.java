@@ -9,6 +9,5 @@ public record EmbeddedGeneralResultDto(
         GeneralResultIdDto id,
         @NotNull Duration duration,
         @NotNull Integer position
-        //3yet ela embded dyal rider
 ) {
 }

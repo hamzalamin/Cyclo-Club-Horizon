@@ -82,4 +82,15 @@ public class GeneralResult {
     public void setRider(Rider rider) {
         this.rider = rider;
     }
+
+    @Override
+    public String toString() {
+        return "GeneralResult{" +
+                "id=" + id +
+                ", generalTime=" + generalTime +
+                ", range=" + range +
+                ", competition=" + competition +
+                ", rider=" + rider +
+                '}';
+    }
 }

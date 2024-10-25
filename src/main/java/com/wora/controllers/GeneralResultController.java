@@ -4,7 +4,6 @@ import com.wora.models.dtos.generalResult.CreateGeneralResultDto;
 import com.wora.models.dtos.generalResult.GeneralResultDto;
 import com.wora.models.entities.embeddables.GeneralResultId;
 import com.wora.services.IGeneralResultService;
-import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

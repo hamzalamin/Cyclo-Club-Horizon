@@ -40,7 +40,7 @@ public class Competition {
     private String location;
 
     @NotNull
-    @Column(name = "is_closed", columnDefinition = "boolean default false")
+    @Column(name = "is_closed")
     private Boolean isClosed;
 
     @OneToMany(mappedBy = "competition", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

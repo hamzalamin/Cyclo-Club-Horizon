@@ -52,6 +52,7 @@ public class CompetitionService implements ICompetitionService {
         competition.setStartDate(dto.startDate());
         competition.setEndDate(dto.endDate());
         competition.setLocation(dto.location());
+        competition.setIsClosed(dto.isClosed());
         Competition updatedCompetition = competitionRepository.save(competition);
         return competitionMapper.toDto(updatedCompetition);
     }

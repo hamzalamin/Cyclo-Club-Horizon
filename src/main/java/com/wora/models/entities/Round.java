@@ -36,7 +36,7 @@ public class Round {
     private LocalDate endDte;
 
     @NotNull
-    @Column(name = "is_closed", columnDefinition = "boolean default false")
+    @Column(name = "is_closed")
     private Boolean isClosed;
 
     @ManyToOne

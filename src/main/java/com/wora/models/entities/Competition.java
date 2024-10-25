@@ -30,6 +30,10 @@ public class Competition {
     @Column(name = "location" ,nullable = false, length = 255)
     private String location;
 
+    @NotNull
+    @Column(name = "is_closed", columnDefinition = "boolean default false")
+    private Boolean isClosed;
+
     @OneToMany(mappedBy = "competition", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<GeneralResult> generalResults;
 

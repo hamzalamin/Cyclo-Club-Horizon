@@ -26,6 +26,10 @@ public class Round {
     @Column(name= "end_date", nullable = false)
     private LocalDate endDte;
 
+    @NotNull
+    @Column(name = "is_closed", columnDefinition = "boolean default false")
+    private Boolean isClosed;
+
     @ManyToOne
     private Competition competition;
 

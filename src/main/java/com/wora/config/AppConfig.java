@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.sql.DataSource;
+import java.util.Properties;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "com.wora.repositories")
@@ -40,6 +41,12 @@ public class AppConfig {
         factoryBean.setJpaVendorAdapter(vendorAdapter);
         factoryBean.setPackagesToScan("com.wora.models.entities");
         factoryBean.setDataSource(dataSource());
+
+        Properties jpaProperties = new Properties();
+        jpaProperties.put("hibernate.hbm2ddl.auto", "update");
+        jpaProperties.put("hibernate.show_sql", true);
+        jpaProperties.put("hibernate.format_sql", true);
+        factoryBean.setJpaProperties(jpaProperties);
 
         return factoryBean;
     }

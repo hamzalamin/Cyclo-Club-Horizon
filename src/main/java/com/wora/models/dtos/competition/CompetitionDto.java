@@ -15,6 +15,7 @@ public record CompetitionDto(
         @NotNull LocalDate startDate,
         @NotNull LocalDate endDate,
         @NotBlank String location,
+        @NotNull Boolean isClosed,
         List<EmbeddedGeneralResultDto> generalResults,
         List<EmbeddedRoundDto> rounds
 ) {

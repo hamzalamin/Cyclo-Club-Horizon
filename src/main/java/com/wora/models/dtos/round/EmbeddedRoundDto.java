@@ -9,6 +9,8 @@ public record EmbeddedRoundDto(
         @Positive Long id,
         @NotNull Integer stageNumber,
         @NotNull LocalDate startDte,
-        @NotNull LocalDate endDte
+        @NotNull LocalDate endDte,
+        @NotNull Boolean isClosed
+
 ) {
 }

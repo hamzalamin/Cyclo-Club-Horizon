@@ -9,6 +9,7 @@ public record CreateRoundDto(
         @NotNull @Positive Integer stageNumber,
         @NotNull LocalDate startDte,
         @NotNull LocalDate endDte,
+        @NotNull Boolean isClosed,
         @Positive Long competitionId
 ) {
 }

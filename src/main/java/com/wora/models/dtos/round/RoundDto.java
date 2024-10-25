@@ -13,6 +13,7 @@ public record RoundDto(
         @NotNull Integer stageNumber,
         @NotNull LocalDate startDte,
         @NotNull LocalDate endDte,
+        @NotNull Boolean isClosed,
         EmbeddedCompetitionDto competition,
         List<EmbeddedRoundResultDto> roundResults
 ) {

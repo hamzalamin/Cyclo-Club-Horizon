@@ -9,6 +9,8 @@ public record UpdateCompetitionDto(
         @NotBlank String name,
         @NotNull LocalDate startDate,
         @NotNull LocalDate endDate,
-        @NotBlank String location
+        @NotBlank String location,
+        @NotNull Boolean isClosed
+
 ) {
 }

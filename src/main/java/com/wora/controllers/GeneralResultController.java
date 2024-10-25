@@ -4,6 +4,7 @@ import com.wora.models.dtos.generalResult.CreateGeneralResultDto;
 import com.wora.models.dtos.generalResult.GeneralResultDto;
 import com.wora.models.entities.embeddables.GeneralResultId;
 import com.wora.services.IGeneralResultService;
+import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,4 +39,11 @@ public class GeneralResultController {
         return new ResponseEntity<>(generalResults, HttpStatus.OK);
     }
 
+    @DeleteMapping("/{riderId}/{competition_id}")
+    public ResponseEntity<Void> deleteGeneralResult(@PathVariable("riderId") @Positive Long riderId, @PathVariable("competition_id") Long competitionId
+    ){
+        GeneralResultId id = new GeneralResultId(competitionId, riderId);
+        generalResultService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

@@ -1,5 +1,6 @@
 package com.wora.services.impl;
 
+import com.wora.exception.EntityNotFoundException;
 import com.wora.mappers.GeneralResultMapper;
 import com.wora.models.dtos.generalResult.CreateGeneralResultDto;
 import com.wora.models.dtos.generalResult.GeneralResultDto;
@@ -11,6 +12,7 @@ import com.wora.repositories.CompetitionRepository;
 import com.wora.repositories.GeneralResultRepository;
 import com.wora.repositories.RiderRepository;
 import com.wora.services.IGeneralResultService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,13 +63,12 @@ public class GeneralResultService implements IGeneralResultService {
         return generalResults;
     }
 
-
     @Override
+    @Transactional
     public void delete(GeneralResultId id) {
-        GeneralResult existingGeneralResult = generalResultRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("result with this id "+ id +" not found"));
-        generalResultRepository.delete(existingGeneralResult);
+        if (!generalResultRepository.existsById(id))
+            throw new EntityNotFoundException("General result ", id);
+        generalResultRepository.deleteByGeneralResultId(id.riderId(), id.competitionId());
     }
-
 
 }

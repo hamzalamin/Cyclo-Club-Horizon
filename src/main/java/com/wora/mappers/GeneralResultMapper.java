@@ -9,8 +9,6 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface GeneralResultMapper extends GenericMapper<GeneralResult, GeneralResultDto> {
     GeneralResult toEntity(CreateGeneralResultDto dto);
-    GeneralResult toEntity(UpdateGeneralResultDto dto);
     GeneralResultDto toDto(GeneralResult generalResult);
-
 }
 

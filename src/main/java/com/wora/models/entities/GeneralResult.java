@@ -43,7 +43,7 @@ public class GeneralResult {
         this.rider = rider;
     }
 
-    public GeneralResultId getId(GeneralResultId generalResultId) {
+    public GeneralResultId getId() {
         return id;
     }
 

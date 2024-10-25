@@ -3,7 +3,6 @@ package com.wora.services.impl;
 import com.wora.mappers.RoundResultMapper;
 import com.wora.models.dtos.roundResult.CreateRoundResultDto;
 import com.wora.models.dtos.roundResult.RoundResultDto;
-import com.wora.models.dtos.roundResult.UpdateRoundResultDto;
 import com.wora.models.entities.Rider;
 import com.wora.models.entities.Round;
 import com.wora.models.entities.RoundResult;
@@ -66,22 +65,6 @@ public class RoundResultService implements IRoundResultService {
                 .collect(Collectors.toList());
         return results;
     }
-
-    @Override
-    @Transactional
-    public RoundResultDto update(RoundResultId id, UpdateRoundResultDto dto) {
-        RoundResult existingRoundResult = roundResultRepository.findById(id).orElseThrow(() -> new RuntimeException("Round result with Id not found"));
-        Rider rider = riderRepository.findById(dto.riderId()).orElseThrow(() -> new RuntimeException("Rider not found"));
-        Round round = roundRepository.findById(dto.roundId()).orElseThrow(() -> new RuntimeException("Round not found"));
-
-        existingRoundResult.setRider(rider);
-        existingRoundResult.setRound(round);
-        existingRoundResult.setPosition(dto.position());
-        existingRoundResult.setDuration(dto.duration());
-        RoundResult updatedRoundResult = roundResultRepository.save(existingRoundResult);
-        return roundResultMapper.toDto(updatedRoundResult);
-    }
-
 
     @Override
     @Transactional

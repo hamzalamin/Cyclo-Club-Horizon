@@ -2,9 +2,7 @@ package com.wora.controllers;
 
 import com.wora.models.dtos.generalResult.CreateGeneralResultDto;
 import com.wora.models.dtos.generalResult.GeneralResultDto;
-import com.wora.models.entities.GeneralResult;
 import com.wora.models.entities.embeddables.GeneralResultId;
-import com.wora.models.entities.embeddables.RoundResultId;
 import com.wora.services.IGeneralResultService;
 import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,4 +37,5 @@ public class GeneralResultController {
         List<GeneralResultDto> generalResults = generalResultService.findAll();
         return new ResponseEntity<>(generalResults, HttpStatus.OK);
     }
+
 }

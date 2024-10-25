@@ -3,7 +3,6 @@ package com.wora.services.impl;
 import com.wora.mappers.GeneralResultMapper;
 import com.wora.models.dtos.generalResult.CreateGeneralResultDto;
 import com.wora.models.dtos.generalResult.GeneralResultDto;
-import com.wora.models.dtos.generalResult.UpdateGeneralResultDto;
 import com.wora.models.entities.Competition;
 import com.wora.models.entities.GeneralResult;
 import com.wora.models.entities.Rider;
@@ -12,7 +11,6 @@ import com.wora.repositories.CompetitionRepository;
 import com.wora.repositories.GeneralResultRepository;
 import com.wora.repositories.RiderRepository;
 import com.wora.services.IGeneralResultService;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,14 +61,6 @@ public class GeneralResultService implements IGeneralResultService {
         return generalResults;
     }
 
-    @Override
-    public GeneralResultDto update(GeneralResultId id, UpdateGeneralResultDto dto) {
-        GeneralResult existingGeneralResult = generalResultRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("result with this id "+ id +" not found"));
-        generalResultMapper.toEntity(dto);
-        GeneralResult generalResult = generalResultRepository.save(existingGeneralResult);
-        return generalResultMapper.toDto(generalResult);
-    }
 
     @Override
     public void delete(GeneralResultId id) {

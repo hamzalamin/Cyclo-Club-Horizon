@@ -4,10 +4,19 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "competitions")
 public class Competition {
     @Id
@@ -40,8 +49,6 @@ public class Competition {
     @OneToMany(mappedBy = "competition", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Round> rounds;
 
-    public Competition(){}
-
     public Competition(Long id, String name, LocalDate startDate, LocalDate endDate, String location, List<GeneralResult> generalResults, List<Round> rounds) {
         this.id = id;
         this.name = name;
@@ -68,73 +75,4 @@ public class Competition {
         this.location = location;
     }
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public @NotBlank String getName() {
-        return name;
-    }
-
-    public void setName(@NotBlank String name) {
-        this.name = name;
-    }
-
-    public @NotNull LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(@NotNull LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
-    public @NotNull LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(@NotNull LocalDate endDate) {
-        this.endDate = endDate;
-    }
-
-    public @NotNull String getLocation() {
-        return location;
-    }
-
-    public void setLocation(@NotNull String location) {
-        this.location = location;
-    }
-
-    public List<GeneralResult> getGeneralResults() {
-        return generalResults;
-    }
-
-    public void setGeneralResults(List<GeneralResult> generalResults) {
-        this.generalResults = generalResults;
-    }
-
-    public List<Round> getRounds() {
-        return rounds;
-    }
-
-    public void setRounds(List<Round> rounds) {
-        this.rounds = rounds;
-    }
-
-    @Override
-    public String toString() {
-        return "Competition{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", location='" + location + '\'' +
-                ", generalResults=" + generalResults +
-                ", rounds=" + rounds +
-                '}';
-    }
 }

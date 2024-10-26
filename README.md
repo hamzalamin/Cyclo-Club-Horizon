@@ -6,6 +6,7 @@ CCH (Cyclo Club Horizon) is a REST API for managing cycling time trial competiti
 ![Cycling Competition Illustration](./assets/cycling-competition.png)
 
 ## 📁 Project Structure
+```plaintext
 CCH/
 ├── helpsSql/
 │   └── Trigger.sql

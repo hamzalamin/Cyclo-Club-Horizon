@@ -63,6 +63,7 @@ public class RoundService implements IRoundService {
         round.setStageNumber(roundDto.stageNumber());
         round.setStartDte(roundDto.startDte());
         round.setEndDte(roundDto.endDte());
+        round.setIsClosed(roundDto.isClosed());
         Round updatedRound = roundRepository.save(round);
         return roundMapper.toDto(updatedRound);
     }

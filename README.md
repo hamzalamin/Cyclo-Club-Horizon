@@ -26,7 +26,7 @@ CCH/
 │   │   └── resources/
 │   └── webapp/
 └── test/
-
+```
 ## 🚀 Features
 ### 🏆 Team Management
 - Create and modify teams

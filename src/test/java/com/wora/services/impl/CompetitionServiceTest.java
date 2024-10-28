@@ -3,8 +3,7 @@ package com.wora.services.impl;
 import com.wora.mappers.CompetitionMapper;
 import com.wora.models.dtos.competition.CompetitionDto;
 import com.wora.models.dtos.competition.CreateCompetitionDto;
-import com.wora.models.dtos.generalResult.EmbeddedGeneralResultDto;
-import com.wora.models.dtos.round.EmbeddedRoundDto;
+import com.wora.models.dtos.competition.UpdateCompetitionDto;
 import com.wora.models.entities.Competition;
 import com.wora.models.entities.GeneralResult;
 import com.wora.models.entities.Round;
@@ -20,7 +19,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -125,10 +123,52 @@ class CompetitionServiceTest {
         assertEquals(expectedCompetitionDto, result);
         verify(repository).save(competitionEntity);
         verify(competitionMapper).toDto(savedCompetition);
+    }
+
+    @Test
+    @DisplayName("update() Should update competition successfully")
+    void update_shouldUpdateSuccessfully() {
+        Long id = 14L;
+        String name = "Updated TAWAF al-Maghrib";
+        LocalDate startDate = LocalDate.parse("2021-01-01");
+        LocalDate endDate = LocalDate.parse("2021-01-01");
+        String location = "Updated Maroc";
+        Boolean isClosed = true;
+
+        UpdateCompetitionDto updateCompetitionDto = new UpdateCompetitionDto(name, startDate, endDate, location, isClosed);
+
+        Competition updatedCompetitionEntity = new Competition();
+        updatedCompetitionEntity.setId(id);
+        updatedCompetitionEntity.setName(name);
+        updatedCompetitionEntity.setStartDate(startDate);
+        updatedCompetitionEntity.setEndDate(endDate);
+        updatedCompetitionEntity.setLocation(location);
+        updatedCompetitionEntity.setIsClosed(isClosed);
 
 
+        Competition originalCompetition = new Competition();
+        originalCompetition.setId(id);
+        originalCompetition.setName("Original TAWAF al-Maghrib");
+        originalCompetition.setStartDate(LocalDate.parse("2020-12-12"));
+        originalCompetition.setEndDate(LocalDate.parse("2020-12-12"));
+        originalCompetition.setLocation("Original Maroc");
+        originalCompetition.setIsClosed(false);
+
+        CompetitionDto expected = new CompetitionDto(id, name, startDate, endDate, location, isClosed, List.of(), List.of());
+
+        when(repository.findById(id)).thenReturn(Optional.of(originalCompetition));
+        when(repository.save(any(Competition.class))).thenReturn(updatedCompetitionEntity);
+        when(competitionMapper.toDto(updatedCompetitionEntity)).thenReturn(expected);
 
 
+        CompetitionDto result = service.update(id, updateCompetitionDto);
+
+        assertNotNull(result);
+        assertEquals(result, expected);
+
+        verify(repository).findById(id);
+        verify(repository).save(any(Competition.class));
+        verify(competitionMapper).toDto(updatedCompetitionEntity);
     }
 
 }

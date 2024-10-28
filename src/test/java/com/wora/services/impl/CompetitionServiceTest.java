@@ -8,6 +8,8 @@ import com.wora.models.entities.Competition;
 import com.wora.models.entities.GeneralResult;
 import com.wora.models.entities.Round;
 import com.wora.repositories.CompetitionRepository;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ValidationException;
 import jakarta.validation.Validator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,8 +19,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -129,7 +133,7 @@ class CompetitionServiceTest {
     void update_shouldUpdateSuccessfully() {
         Long id = 14L;
         String name = "Updated TAWAF al-Maghrib";
-        LocalDate startDate = LocalDate.parse("2021-01-01");
+            LocalDate startDate = LocalDate.parse("2021-01-01");
         LocalDate endDate = LocalDate.parse("2021-01-01");
         String location = "Updated Maroc";
         Boolean isClosed = true;
@@ -189,6 +193,44 @@ class CompetitionServiceTest {
         assertTrue(actualMessage.contains(expectedMessage));
         verify(repository).findById(id);
     }
+
+    @Test
+    @DisplayName("findAll() Should Return List of Competitions")
+    void findAllShouldReturnListOfCompetitions() {
+        Competition competition1 = new Competition();
+        competition1.setId(1L);
+        competition1.setName("Competition 1");
+        competition1.setStartDate(LocalDate.parse("2021-01-01"));
+        competition1.setEndDate(LocalDate.parse("2021-12-31"));
+        competition1.setLocation("maroc");
+        competition1.setIsClosed(false);
+
+        Competition competition2 = new Competition();
+        competition2.setId(2L);
+        competition2.setName("Competition 2");
+        competition2.setStartDate(LocalDate.parse("2021-01-01"));
+        competition2.setEndDate(LocalDate.parse("2021-12-31"));
+        competition2.setLocation("maroc");
+        competition2.setIsClosed(false);
+        List<Competition> competitions = Arrays.asList(competition1, competition2);
+
+        when(repository.findAll()).thenReturn(competitions);
+
+        CompetitionDto dto1 = new CompetitionDto(1L, "Competition 1", LocalDate.parse("2021-01-01"), LocalDate.parse("2021-01-01"), "maroc", false, List.of(), List.of());
+        CompetitionDto dto2 = new CompetitionDto(2L, "Competition 2", LocalDate.parse("2021-01-01"), LocalDate.parse("2021-01-01"), "maroc", false, List.of(), List.of());
+
+        when(competitionMapper.toDto(competition1)).thenReturn(dto1);
+        when(competitionMapper.toDto(competition2)).thenReturn(dto2);
+
+        List<CompetitionDto> result = service.getAll();
+
+        assertEquals(2, result.size());
+        assertEquals(dto1, result.get(0));
+        assertEquals(dto2, result.get(1));
+
+        verify(repository).findAll();
+    }
+
 
 
 }

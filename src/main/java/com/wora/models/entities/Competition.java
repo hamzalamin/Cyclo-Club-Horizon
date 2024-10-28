@@ -1,6 +1,7 @@
 package com.wora.models.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.wora.models.dtos.generalResult.EmbeddedGeneralResultDto;
+import com.wora.models.dtos.round.EmbeddedRoundDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

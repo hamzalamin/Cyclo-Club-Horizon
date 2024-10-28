@@ -244,5 +244,20 @@ class CompetitionServiceTest {
         verify(repository).findAll();
     }
 
+    @Test
+    @DisplayName("delete() Should Delete Competition Successfully")
+    void deleteShouldDeleteCompetitionSuccessfully() {
+        Long competitionId = 1L;
+
+        doNothing().when(repository).deleteById(competitionId);
+        when(repository.findById(competitionId)).thenReturn(Optional.of(new Competition()));
+
+        service.delete(competitionId);
+
+        verify(repository).findById(competitionId);
+        verify(repository).deleteById(competitionId);
+    }
+
+
 
 }

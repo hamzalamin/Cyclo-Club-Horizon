@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
 
 @Service
 public class CompetitionService implements ICompetitionService {
@@ -62,7 +64,12 @@ public class CompetitionService implements ICompetitionService {
 
     @Override
     public void delete(Long id) {
-        competitionRepository.deleteById(id);
+        Optional<Competition> competitionOptional = competitionRepository.findById(id);
+        if (competitionOptional.isPresent()) {
+            competitionRepository.deleteById(id);
+        } else {
+            System.out.println("Competition not found");
+        }
     }
 
 }

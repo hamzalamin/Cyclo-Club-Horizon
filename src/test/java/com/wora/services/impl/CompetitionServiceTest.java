@@ -1,5 +1,6 @@
 package com.wora.services.impl;
 
+import com.wora.exception.CompetitionNotFoundException;
 import com.wora.mappers.CompetitionMapper;
 import com.wora.models.dtos.competition.CompetitionDto;
 import com.wora.models.dtos.competition.CreateCompetitionDto;
@@ -258,6 +259,18 @@ class CompetitionServiceTest {
         verify(repository).deleteById(competitionId);
     }
 
+    @Test
+    @DisplayName("delete() Should Throw Exception When Competition Not Found")
+    void deleteShouldThrowExceptionWhenCompetitionNotFound() {
+        Long competitionId = 1L;
+        when(repository.findById(competitionId)).thenReturn(Optional.empty());
+
+        CompetitionNotFoundException thrown = assertThrows(CompetitionNotFoundException.class, () -> {
+            service.delete(competitionId);
+        });
+        assertEquals("Competition not found with ID: " + competitionId, thrown.getMessage());
+        verify(repository, never()).deleteById(competitionId);
+    }
 
 
 }

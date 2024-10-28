@@ -1,5 +1,6 @@
 package com.wora.services.impl;
 
+import com.wora.exception.CompetitionNotFoundException;
 import com.wora.mappers.CompetitionMapper;
 import com.wora.models.dtos.competition.CompetitionDto;
 import com.wora.models.dtos.competition.CreateCompetitionDto;
@@ -68,7 +69,7 @@ public class CompetitionService implements ICompetitionService {
         if (competitionOptional.isPresent()) {
             competitionRepository.deleteById(id);
         } else {
-            System.out.println("Competition not found");
+            throw new CompetitionNotFoundException("Competition not found with ID: " + id);
         }
     }
 

@@ -2,6 +2,7 @@ package com.wora.services.impl;
 
 import com.wora.mappers.CompetitionMapper;
 import com.wora.models.dtos.competition.CompetitionDto;
+import com.wora.models.dtos.competition.CreateCompetitionDto;
 import com.wora.models.dtos.generalResult.EmbeddedGeneralResultDto;
 import com.wora.models.dtos.round.EmbeddedRoundDto;
 import com.wora.models.entities.Competition;
@@ -72,6 +73,14 @@ class CompetitionServiceTest {
         when(repository.findById(id)).thenReturn(Optional.empty());
 
         assertThrows(RuntimeException.class, () -> service.getById(id));
+    }
+
+
+    @Test
+    @DisplayName("createCompetition() Should Throw Exception When CompetitionDto Is Null")
+    void createCompetition_ShouldThrowExceptionWhenCompetitionDtoIsNull() {
+        CreateCompetitionDto competitionDto = null;
+        assertThrows(IllegalArgumentException.class, () -> service.create(competitionDto));
     }
 
 }

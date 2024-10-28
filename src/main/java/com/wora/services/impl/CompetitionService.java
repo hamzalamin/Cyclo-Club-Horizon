@@ -24,6 +24,9 @@ public class CompetitionService implements ICompetitionService {
 
     @Override
     public CompetitionDto create(CreateCompetitionDto competitionDto){
+        if (competitionDto == null) {
+            throw new IllegalArgumentException("CompetitionDto cannot be null");
+        }
         Competition competition = competitionMapper.toEntity(competitionDto);
         Competition savedCompetition = competitionRepository.save(competition);
         return competitionMapper.toDto(savedCompetition);

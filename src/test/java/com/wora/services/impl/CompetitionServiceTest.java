@@ -20,8 +20,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
@@ -170,5 +169,26 @@ class CompetitionServiceTest {
         verify(repository).save(any(Competition.class));
         verify(competitionMapper).toDto(updatedCompetitionEntity);
     }
+
+
+    @Test
+    @DisplayName("update() Should Throw Exception When Competition Not Found")
+    void updateShouldThrowExceptionWhenCompetitionNotFound() {
+        Long id = 14L;
+        UpdateCompetitionDto updateCompetitionDto = new UpdateCompetitionDto("Updated Name", LocalDate.now(), LocalDate.now(), "Updated Location", false);
+
+        when(repository.findById(id)).thenReturn(Optional.empty());
+
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            service.update(id, updateCompetitionDto);
+        });
+
+        String expectedMessage = "Competition not found";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+        verify(repository).findById(id);
+    }
+
 
 }

@@ -231,6 +231,18 @@ class CompetitionServiceTest {
         verify(repository).findAll();
     }
 
+    @Test
+    @DisplayName("getAll() Should throw an exception when repository fails")
+    void getAll_shouldThrowException_whenRepositoryFails() {
+        when(repository.findAll()).thenThrow(new RuntimeException("Database error"));
+
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            service.getAll();
+        });
+
+        assertEquals("Database error", exception.getMessage());
+        verify(repository).findAll();
+    }
 
 
 }

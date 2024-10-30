@@ -12,6 +12,7 @@ import com.wora.services.IRoundService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,6 +34,14 @@ public class RoundService implements IRoundService {
 
         if (competition.getIsClosed() == true){
             throw new RuntimeException("This competition is closed you cant add round in it");
+        }
+
+        if (roundDto.startDte().isAfter(roundDto.endDte())) {
+            throw new RuntimeException("Start date cannot be after end date.");
+        }
+
+        if(!isDateBetween(roundDto.startDte(), competition.getStartDate(), competition.getEndDate())){
+            throw new RuntimeException("date have to be between dates of competition.");
         }
 
         Round round = roundMapper.toEntity(roundDto);
@@ -71,6 +80,12 @@ public class RoundService implements IRoundService {
     @Override
     public void delete(Long id) {
         roundRepository.deleteById(id);
+    }
+
+
+    public static boolean isDateBetween(LocalDate givenDate, LocalDate before, LocalDate after) {
+        if (givenDate == null || before == null || after == null) return false;
+        return !givenDate.isBefore(before) && !givenDate.isAfter(after);
     }
 
 }

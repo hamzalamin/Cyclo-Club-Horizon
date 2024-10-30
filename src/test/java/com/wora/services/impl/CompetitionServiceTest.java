@@ -9,8 +9,6 @@ import com.wora.models.entities.Competition;
 import com.wora.models.entities.GeneralResult;
 import com.wora.models.entities.Round;
 import com.wora.repositories.CompetitionRepository;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.ValidationException;
 import jakarta.validation.Validator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

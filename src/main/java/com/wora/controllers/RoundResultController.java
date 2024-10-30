@@ -4,6 +4,7 @@ import com.wora.models.dtos.roundResult.CreateRoundResultDto;
 import com.wora.models.dtos.roundResult.RoundResultDto;
 import com.wora.models.entities.embeddables.RoundResultId;
 import com.wora.services.IRoundResultService;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ public class RoundResultController {
     private IRoundResultService roundResultService;
 
     @PostMapping
-    public ResponseEntity<RoundResultDto> createRoundResult(@RequestBody CreateRoundResultDto createRoundResultDto){
+    public ResponseEntity<RoundResultDto> createRoundResult(@RequestBody @Valid CreateRoundResultDto createRoundResultDto){
         return new ResponseEntity<>(roundResultService.create(createRoundResultDto), HttpStatus.OK);
     }
 
